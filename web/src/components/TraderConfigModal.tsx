@@ -435,12 +435,12 @@ export function TraderConfigModal({
                     onBlur={(e) => {
                       // Force minimum value on blur
                       const value = Number(e.target.value)
-                      if (value < 100) {
-                        handleInputChange('initial_balance', 100)
+                      if (value < 10) {
+                        handleInputChange('initial_balance', 10)
                       }
                     }}
                     className="w-full px-3 py-2 bg-[#0B0E11] border border-[#2B3139] rounded text-[#EAECEF] focus:border-[#F0B90B] focus:outline-none"
-                    min="100"
+                    min="10"
                     step="0.01"
                   />
                   {!isEditMode && (
@@ -487,14 +487,14 @@ export function TraderConfigModal({
                     onChange={(e) => {
                       const parsedValue = Number(e.target.value)
                       const safeValue = Number.isFinite(parsedValue)
-                        ? Math.max(3, parsedValue)
-                        : 3
+                        ? Math.max(0.5, parsedValue)
+                        : 0.5
                       handleInputChange('scan_interval_minutes', safeValue)
                     }}
                     className="w-full px-3 py-2 bg-[#0B0E11] border border-[#2B3139] rounded text-[#EAECEF] focus:border-[#F0B90B] focus:outline-none"
-                    min="3"
+                    min="0.5"
                     max="60"
-                    step="1"
+                    step="0.5"
                   />
                   <p className="text-xs text-gray-500 mt-1">
                     {t('scanIntervalRecommend', language)}
