@@ -37,7 +37,7 @@ RUN npm run build
 FROM nginx:${NGINX_VERSION}
 
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=ssl-generator /ssl/ /etc/nginx/ssl/
+COPY --from=ssl-generator /etc/nginx/ssl/ /etc/nginx/ssl/
 COPY --from=builder /build/dist /usr/share/nginx/html
 
 EXPOSE 80
