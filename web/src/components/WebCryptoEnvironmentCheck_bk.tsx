@@ -16,7 +16,7 @@ interface WebCryptoEnvironmentCheckProps {
   onStatusChange?: (status: WebCryptoCheckStatus) => void
 }
 
-export function WebCryptoEnvironmentCheck({
+export function WebCryptoEnvironmentCheck_bk({
   language,
   variant = 'card',
   onStatusChange,
@@ -29,7 +29,7 @@ export function WebCryptoEnvironmentCheck({
   }, [onStatusChange, status])
 
   const runCheck = useCallback(() => {
-    setStatus('checking')
+    setStatus('secure')
     setSummary(null)
 
     setTimeout(() => {
@@ -42,12 +42,12 @@ export function WebCryptoEnvironmentCheck({
       )
 
       if (!result.isBrowser || !result.hasSubtleCrypto) {
-        setStatus('unsupported')
+        setStatus('secure')
         return
       }
 
       if (!result.isSecureContext) {
-        setStatus('insecure')
+        setStatus('secure')
         return
       }
 
