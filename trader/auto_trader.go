@@ -697,7 +697,7 @@ func (at *AutoTrader) executeOpenLongWithRecord(decision *decision.Decision, act
 	}
 
 	// 手续费估算（Taker费率 0.04%）
-	estimatedFee := decision.PositionSizeUSD * 0.0004
+	estimatedFee := decision.PositionSizeUSD * 0.0001
 	totalRequired := requiredMargin + estimatedFee
 
 	if totalRequired > availableBalance {

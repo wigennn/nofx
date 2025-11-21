@@ -40,6 +40,7 @@ services:
     restart: unless-stopped
     ports:
       - "${NOFX_FRONTEND_PORT:-3000}:80"
+      - "443:443"
     networks:
       - nofx-network
     depends_on:

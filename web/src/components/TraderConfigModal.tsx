@@ -4,7 +4,6 @@ import { useLanguage } from '../contexts/LanguageContext'
 import { t } from '../i18n/translations'
 import { toast } from 'sonner'
 import { Pencil, Plus, X as IconX } from 'lucide-react'
-import { httpClient } from '../lib/httpClient'
 
 // 提取下划线后面的名称部分
 function getShortName(fullName: string): string {
@@ -26,7 +25,7 @@ interface TraderConfigData {
   is_cross_margin: boolean
   use_coin_pool: boolean
   use_oi_top: boolean
-  initial_balance?: number // 可选：创建时不需要，编辑时使用
+  initial_balance: number
   scan_interval_minutes: number
 }
 
@@ -63,6 +62,7 @@ export function TraderConfigModal({
     is_cross_margin: true,
     use_coin_pool: false,
     use_oi_top: false,
+    initial_balance: 1000,
     scan_interval_minutes: 3,
   })
   const [isSaving, setIsSaving] = useState(false)
@@ -115,22 +115,10 @@ export function TraderConfigModal({
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const result = await httpClient.get<{ default_coins?: string[] }>(
-          '/api/config'
-        )
-        if (result.success && result.data?.default_coins) {
-          setAvailableCoins(result.data.default_coins)
-        } else {
-          // 使用默认币种列表
-          setAvailableCoins([
-            'BTCUSDT',
-            'ETHUSDT',
-            'SOLUSDT',
-            'BNBUSDT',
-            'XRPUSDT',
-            'DOGEUSDT',
-            'ADAUSDT',
-          ])
+        const response = await fetch('/api/config')
+        const config = await response.json()
+        if (config.default_coins) {
+          setAvailableCoins(config.default_coins)
         }
       } catch (error) {
         console.error('Failed to fetch config:', error)
@@ -153,14 +141,10 @@ export function TraderConfigModal({
   useEffect(() => {
     const fetchPromptTemplates = async () => {
       try {
-        const result = await httpClient.get<{ templates?: { name: string }[] }>(
-          '/api/prompt-templates'
-        )
-        if (result.success && result.data?.templates) {
-          setPromptTemplates(result.data.templates)
-        } else {
-          // 使用默认模板列表
-          setPromptTemplates([{ name: 'default' }, { name: 'aggressive' }])
+        const response = await fetch('/api/prompt-templates')
+        const data = await response.json()
+        if (data.templates) {
+          setPromptTemplates(data.templates)
         }
       } catch (error) {
         console.error('Failed to fetch prompt templates:', error)
@@ -210,26 +194,36 @@ export function TraderConfigModal({
     setBalanceFetchError('')
 
     try {
-      const result = await httpClient.get<{
-        total_equity?: number
-        balance?: number
-      }>(`/api/account?trader_id=${traderData.trader_id}`)
-
-      if (result.success && result.data) {
-        // total_equity = 当前账户净值（包含未实现盈亏）
-        // 这应该作为新的初始余额
-        const currentBalance =
-          result.data.total_equity || result.data.balance || 0
-
-        setFormData((prev) => ({ ...prev, initial_balance: currentBalance }))
-        toast.success('已获取当前余额')
-      } else {
-        throw new Error(result.message || '获取余额失败')
+      const token = localStorage.getItem('auth_token')
+      if (!token) {
+        throw new Error('未登录，请先登录')
       }
+
+      const response = await fetch(
+        `/api/account?trader_id=${traderData.trader_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error('获取账户余额失败')
+      }
+
+      const data = await response.json()
+
+      // total_equity = 当前账户净值（包含未实现盈亏）
+      // 这应该作为新的初始余额
+      const currentBalance = data.total_equity || data.balance || 0
+
+      setFormData((prev) => ({ ...prev, initial_balance: currentBalance }))
+      toast.success('已获取当前余额')
     } catch (error) {
       console.error('获取余额失败:', error)
       setBalanceFetchError('获取余额失败，请检查网络连接')
-      // Note: Network/system errors already shown via toast by httpClient
+      toast.error('获取余额失败，请检查网络连接')
     } finally {
       setIsFetchingBalance(false)
     }
@@ -253,14 +247,9 @@ export function TraderConfigModal({
         is_cross_margin: formData.is_cross_margin,
         use_coin_pool: formData.use_coin_pool,
         use_oi_top: formData.use_oi_top,
+        initial_balance: formData.initial_balance,
         scan_interval_minutes: formData.scan_interval_minutes,
       }
-
-      // 只在编辑模式时包含initial_balance（用于手动更新）
-      if (isEditMode && formData.initial_balance !== undefined) {
-        saveData.initial_balance = formData.initial_balance
-      }
-
       await toast.promise(onSave(saveData), {
         loading: '正在保存…',
         success: '保存成功',
@@ -415,12 +404,15 @@ export function TraderConfigModal({
                     </button>
                   </div>
                 </div>
-                {isEditMode && (
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm text-[#EAECEF]">
-                        初始余额 ($)
-                      </label>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm text-[#EAECEF]">
+                      初始余额 ($)
+                      {!isEditMode && (
+                        <span className="text-[#F0B90B] ml-1">*</span>
+                      )}
+                    </label>
+                    {isEditMode && (
                       <button
                         type="button"
                         onClick={handleFetchCurrentBalance}
@@ -429,46 +421,33 @@ export function TraderConfigModal({
                       >
                         {isFetchingBalance ? '获取中...' : '获取当前余额'}
                       </button>
-                    </div>
-                    <input
-                      type="number"
-                      value={formData.initial_balance || 0}
-                      onChange={(e) =>
-                        handleInputChange(
-                          'initial_balance',
-                          Number(e.target.value)
-                        )
-                      }
-                      onBlur={(e) => {
-                        // Force minimum value on blur
-                        const value = Number(e.target.value)
-                        if (value < 100) {
-                          handleInputChange('initial_balance', 100)
-                        }
-                      }}
-                      className="w-full px-3 py-2 bg-[#0B0E11] border border-[#2B3139] rounded text-[#EAECEF] focus:border-[#F0B90B] focus:outline-none"
-                      min="100"
-                      step="0.01"
-                    />
-                    <p className="text-xs text-[#848E9C] mt-1">
-                      用于手动更新初始余额基准（例如充值/提现后）
-                    </p>
-                    {balanceFetchError && (
-                      <p className="text-xs text-red-500 mt-1">
-                        {balanceFetchError}
-                      </p>
                     )}
                   </div>
-                )}
-                {!isEditMode && (
-                  <div>
-                    <label className="text-sm text-[#EAECEF] mb-2 block">
-                      初始余额
-                    </label>
-                    <div className="w-full px-3 py-2 bg-[#1E2329] border border-[#2B3139] rounded text-[#848E9C] flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={formData.initial_balance}
+                    onChange={(e) =>
+                      handleInputChange(
+                        'initial_balance',
+                        Number(e.target.value)
+                      )
+                    }
+                    onBlur={(e) => {
+                      // Force minimum value on blur
+                      const value = Number(e.target.value)
+                      if (value < 10) {
+                        handleInputChange('initial_balance', 10)
+                      }
+                    }}
+                    className="w-full px-3 py-2 bg-[#0B0E11] border border-[#2B3139] rounded text-[#EAECEF] focus:border-[#F0B90B] focus:outline-none"
+                    min="10"
+                    step="0.01"
+                  />
+                  {!isEditMode && (
+                    <p className="text-xs text-[#F0B90B] mt-1 flex items-center gap-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-4 h-4 text-[#F0B90B]"
+                        className="w-3.5 h-3.5"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -476,16 +455,24 @@ export function TraderConfigModal({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" x2="12" y1="8" y2="12" />
-                        <line x1="12" x2="12.01" y1="16" y2="16" />
+                        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+                        <line x1="12" x2="12" y1="9" y2="13" />
+                        <line x1="12" x2="12.01" y1="17" y2="17" />
                       </svg>
-                      <span className="text-sm">
-                        系统将自动获取您的账户净值作为初始余额
-                      </span>
-                    </div>
-                  </div>
-                )}
+                      请输入您交易所账户的当前实际余额。如果输入不准确，P&L统计将会错误。
+                    </p>
+                  )}
+                  {isEditMode && (
+                    <p className="text-xs text-[#848E9C] mt-1">
+                      点击"获取当前余额"按钮可自动获取您交易所账户的当前净值
+                    </p>
+                  )}
+                  {balanceFetchError && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {balanceFetchError}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* 第二行：AI 扫描决策间隔 */}
@@ -500,14 +487,14 @@ export function TraderConfigModal({
                     onChange={(e) => {
                       const parsedValue = Number(e.target.value)
                       const safeValue = Number.isFinite(parsedValue)
-                        ? Math.max(3, parsedValue)
-                        : 3
+                        ? Math.max(0.5, parsedValue)
+                        : 0.5
                       handleInputChange('scan_interval_minutes', safeValue)
                     }}
                     className="w-full px-3 py-2 bg-[#0B0E11] border border-[#2B3139] rounded text-[#EAECEF] focus:border-[#F0B90B] focus:outline-none"
-                    min="3"
+                    min="0.5"
                     max="60"
-                    step="1"
+                    step="0.5"
                   />
                   <p className="text-xs text-gray-500 mt-1">
                     {t('scanIntervalRecommend', language)}

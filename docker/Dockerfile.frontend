@@ -8,6 +8,17 @@
 ARG NODE_VERSION=20-alpine
 ARG NGINX_VERSION=alpine
 
+# Add this before the nginx stage
+# ──────────────────────────────────────────────────────────────
+# SSL Certificate Generation
+# ──────────────────────────────────────────────────────────────
+FROM alpine:latest AS ssl-generator
+RUN apk add --no-cache openssl
+RUN mkdir -p /etc/nginx/ssl
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -nodes \
+    -subj "/C=US/ST=State/L=City/O=Organization/CN=150.109.14.22"
+
 # ──────────────────────────────────────────────────────────────
 # Build Stage (Node)
 # ──────────────────────────────────────────────────────────────
@@ -26,9 +37,13 @@ RUN npm run build
 FROM nginx:${NGINX_VERSION}
 
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx/ssl/aitotrading.site_bundle.crt /etc/nginx/ssl/aitotrading.site_bundle.crt
+COPY nginx/ssl/aitotrading.site.key /etc/nginx/ssl/aitotrading.site.crt
+COPY --from=ssl-generator /etc/nginx/ssl/ /etc/nginx/ssl/
 COPY --from=builder /build/dist /usr/share/nginx/html
 
 EXPOSE 80
+EXPOSE 443
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
