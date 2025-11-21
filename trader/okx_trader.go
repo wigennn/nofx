@@ -41,7 +41,7 @@ type OKXTrader struct {
 }
 
 // NewOKXTrader 创建欧易交易器
-func NewOKXTrader(apiKey, secretKey, passphrase string, testnet bool) *OKXTrader {
+func NewOKXTrader(apiKey, secretKey, passphrase string, testnet bool) (*OKXTrader, error) {
 	// 验证 API 密钥格式
 	if apiKey == "" || secretKey == "" || passphrase == "" {
 		log.Printf("⚠️  警告: OKX API 密钥、密钥或密码短语为空")
@@ -50,15 +50,20 @@ func NewOKXTrader(apiKey, secretKey, passphrase string, testnet bool) *OKXTrader
 		log.Printf("   API Key 长度: %d, Secret Key 长度: %d", len(apiKey), len(secretKey))
 	}
 
+	baseURL := "https://www.okx.com"
+	if testnet {
+		baseURL = "https://www.okx.com" // OKX测试网使用相同URL，通过header区分
+	}
+
 	return &OKXTrader{
 		apiKey:        apiKey,
 		secretKey:     secretKey,
 		passphrase:    passphrase,
 		testnet:       testnet,
-		baseURL:       "https://www.okx.com",
+		baseURL:       baseURL,
 		client:        &http.Client{Timeout: 30 * time.Second},
 		cacheDuration: 15 * time.Second,
-	}
+	}, nil
 }
 
 // signRequest 生成 OKX API 签名
@@ -273,9 +278,33 @@ func (t *OKXTrader) SetMarginMode(symbol string, isCrossMargin bool) error {
 	// 转换交易对格式
 	okxSymbol := convertSymbolToOKX(symbol)
 
+	// 先尝试获取当前仓位模式（从持仓信息）
+	currentMode := ""
+	positions, err := t.GetPositions()
+	if err == nil {
+		for _, pos := range positions {
+			if pos["symbol"] == symbol || pos["symbol"] == okxSymbol {
+				if mode, ok := pos["mgnMode"].(string); ok {
+					currentMode = mode
+					break
+				}
+			}
+		}
+	}
+
 	marginMode := "isolated"
 	if isCrossMargin {
 		marginMode = "cross"
+	}
+
+	// 如果当前仓位模式已经是目标模式，跳过
+	if currentMode == marginMode && currentMode != "" {
+		marginModeStr := "逐仓"
+		if isCrossMargin {
+			marginModeStr = "全仓"
+		}
+		log.Printf("  ✓ %s 仓位模式已是 %s，无需切换", symbol, marginModeStr)
+		return nil
 	}
 
 	body := map[string]interface{}{
@@ -284,7 +313,7 @@ func (t *OKXTrader) SetMarginMode(symbol string, isCrossMargin bool) error {
 	}
 
 	bodyJSON, _ := json.Marshal(body)
-	_, err := t.doRequest("POST", "/api/v5/account/set-position-mode", string(bodyJSON))
+	_, err = t.doRequest("POST", "/api/v5/account/set-position-mode", string(bodyJSON))
 
 	marginModeStr := "全仓"
 	if !isCrossMargin {
@@ -305,13 +334,33 @@ func (t *OKXTrader) SetLeverage(symbol string, leverage int) error {
 	// 转换交易对格式
 	okxSymbol := convertSymbolToOKX(symbol)
 
+	// 先尝试获取当前杠杆（从持仓信息）
+	currentLeverage := 0
+	positions, err := t.GetPositions()
+	if err == nil {
+		for _, pos := range positions {
+			if pos["symbol"] == symbol || pos["symbol"] == okxSymbol {
+				if lev, ok := pos["leverage"].(float64); ok {
+					currentLeverage = int(lev)
+					break
+				}
+			}
+		}
+	}
+
+	// 如果当前杠杆已经是目标杠杆，跳过
+	if currentLeverage == leverage && currentLeverage > 0 {
+		log.Printf("  ✓ %s 杠杆已是 %dx，无需切换", symbol, leverage)
+		return nil
+	}
+
 	body := map[string]interface{}{
 		"instId": okxSymbol,
 		"lever":  strconv.Itoa(leverage),
 	}
 
 	bodyJSON, _ := json.Marshal(body)
-	_, err := t.doRequest("POST", "/api/v5/account/set-leverage", string(bodyJSON))
+	_, err = t.doRequest("POST", "/api/v5/account/set-leverage", string(bodyJSON))
 
 	if err != nil {
 		log.Printf("  ⚠️ 设置杠杆失败: %v", err)
@@ -336,13 +385,19 @@ func (t *OKXTrader) OpenLong(symbol string, quantity float64, leverage int) (map
 
 	// 设置杠杆
 	if err := t.SetLeverage(okxSymbol, leverage); err != nil {
-		log.Printf("  ⚠ 设置杠杆失败: %v", err)
+		log.Printf("  ⚠️ 设置杠杆失败: %v", err)
 	}
 
 	// 格式化数量
 	quantityStr, err := t.FormatQuantity(symbol, quantity)
 	if err != nil {
 		return nil, err
+	}
+
+	// 确保格式化后的数量不为0
+	quantityFloat, parseErr := strconv.ParseFloat(quantityStr, 64)
+	if parseErr != nil || quantityFloat <= 0 {
+		return nil, fmt.Errorf("开仓数量过小，格式化后为 0 (原始: %.8f → 格式化: %s)。建议增加开仓金额或选择价格更低的币种", quantity, quantityStr)
 	}
 
 	// 下单
@@ -405,6 +460,12 @@ func (t *OKXTrader) OpenShort(symbol string, quantity float64, leverage int) (ma
 	quantityStr, err := t.FormatQuantity(symbol, quantity)
 	if err != nil {
 		return nil, err
+	}
+
+	// 确保格式化后的数量不为0
+	quantityFloat, parseErr := strconv.ParseFloat(quantityStr, 64)
+	if parseErr != nil || quantityFloat <= 0 {
+		return nil, fmt.Errorf("开仓数量过小，格式化后为 0 (原始: %.8f → 格式化: %s)。建议增加开仓金额或选择价格更低的币种", quantity, quantityStr)
 	}
 
 	// 下单
@@ -784,4 +845,187 @@ func (t *OKXTrader) FormatQuantity(symbol string, quantity float64) (string, err
 	}
 
 	return strconv.FormatFloat(quantity, 'f', 4, 64), nil
+}
+
+// CancelStopLossOrders 仅取消止损单（不影响止盈单）
+func (t *OKXTrader) CancelStopLossOrders(symbol string) error {
+	// 获取该币种的所有未完成订单
+	orders, err := t.getOpenOrders(symbol)
+	if err != nil {
+		return fmt.Errorf("获取未完成订单失败: %w", err)
+	}
+
+	// 过滤出止损单并取消
+	canceledCount := 0
+	var cancelErrors []error
+	for _, order := range orders {
+		// 检查是否为止损单（通过订单类型和备注等信息判断）
+		if t.isStopLossOrder(order) {
+			err := t.cancelOrder(symbol, order["ordId"].(string))
+			if err != nil {
+				errMsg := fmt.Sprintf("订单ID %s: %v", order["ordId"].(string), err)
+				cancelErrors = append(cancelErrors, fmt.Errorf("%s", errMsg))
+				log.Printf("  ⚠ 取消止损单失败: %s", errMsg)
+				continue
+			}
+
+			canceledCount++
+			log.Printf("  ✓ 已取消止损单 (订单ID: %s)", order["ordId"].(string))
+		}
+	}
+
+	if canceledCount == 0 && len(cancelErrors) == 0 {
+		log.Printf("  ℹ %s 没有止损单需要取消", symbol)
+	} else if canceledCount > 0 {
+		log.Printf("  ✓ 已取消 %s 的 %d 个止损单", symbol, canceledCount)
+	}
+
+	// 如果所有取消都失败了，返回错误
+	if len(cancelErrors) > 0 && canceledCount == 0 {
+		return fmt.Errorf("取消止损单失败: %v", cancelErrors)
+	}
+
+	return nil
+}
+
+// CancelTakeProfitOrders 仅取消止盈单（不影响止损单）
+func (t *OKXTrader) CancelTakeProfitOrders(symbol string) error {
+	// 获取该币种的所有未完成订单
+	orders, err := t.getOpenOrders(symbol)
+	if err != nil {
+		return fmt.Errorf("获取未完成订单失败: %w", err)
+	}
+
+	// 过滤出止盈单并取消
+	canceledCount := 0
+	var cancelErrors []error
+	for _, order := range orders {
+		// 检查是否为止盈单（通过订单类型和备注等信息判断）
+		if t.isTakeProfitOrder(order) {
+			err := t.cancelOrder(symbol, order["ordId"].(string))
+			if err != nil {
+				errMsg := fmt.Sprintf("订单ID %s: %v", order["ordId"].(string), err)
+				cancelErrors = append(cancelErrors, fmt.Errorf("%s", errMsg))
+				log.Printf("  ⚠ 取消止盈单失败: %s", errMsg)
+				continue
+			}
+
+			canceledCount++
+			log.Printf("  ✓ 已取消止盈单 (订单ID: %s)", order["ordId"].(string))
+		}
+	}
+
+	if canceledCount == 0 && len(cancelErrors) == 0 {
+		log.Printf("  ℹ %s 没有止盈单需要取消", symbol)
+	} else if canceledCount > 0 {
+		log.Printf("  ✓ 已取消 %s 的 %d 个止盈单", symbol, canceledCount)
+	}
+
+	// 如果所有取消都失败了，返回错误
+	if len(cancelErrors) > 0 && canceledCount == 0 {
+		return fmt.Errorf("取消止盈单失败: %v", cancelErrors)
+	}
+
+	return nil
+}
+
+// CancelStopOrders 取消该币种的止盈/止损单（用于调整止盈止损位置）
+func (t *OKXTrader) CancelStopOrders(symbol string) error {
+	// 获取该币种的所有未完成订单
+	orders, err := t.getOpenOrders(symbol)
+	if err != nil {
+		return fmt.Errorf("获取未完成订单失败: %w", err)
+	}
+
+	// 过滤出止盈止损单并取消
+	canceledCount := 0
+	for _, order := range orders {
+		// 检查是否为止盈或止损单
+		if t.isStopOrder(order) {
+			err := t.cancelOrder(symbol, order["ordId"].(string))
+			if err != nil {
+				log.Printf("  ⚠ 取消订单 %s 失败: %v", order["ordId"].(string), err)
+				continue
+			}
+
+			canceledCount++
+			log.Printf("  ✓ 已取消 %s 的止盈/止损单 (订单ID: %s)", symbol, order["ordId"].(string))
+		}
+	}
+
+	if canceledCount == 0 {
+		log.Printf("  ℹ %s 没有止盈/止损单需要取消", symbol)
+	} else {
+		log.Printf("  ✓ 已取消 %s 的 %d 个止盈/止损单", symbol, canceledCount)
+	}
+
+	return nil
+}
+
+// getOpenOrders 获取指定交易对的未完成订单
+func (t *OKXTrader) getOpenOrders(symbol string) ([]map[string]interface{}, error) {
+	okxSymbol := convertSymbolToOKX(symbol)
+	endpoint := fmt.Sprintf("/api/v5/trade/orders-pending?instId=%s", okxSymbol)
+
+	data, err := t.doRequest("GET", endpoint, "")
+	if err != nil {
+		return nil, err
+	}
+
+	var orders []map[string]interface{}
+	if err := json.Unmarshal(data, &orders); err != nil {
+		return nil, fmt.Errorf("解析订单数据失败: %w", err)
+	}
+
+	return orders, nil
+}
+
+// isStopLossOrder 判断是否为止损单
+func (t *OKXTrader) isStopLossOrder(order map[string]interface{}) bool {
+	// OKX使用ordType字段区分订单类型
+	// conditional: 条件单（包括止盈止损）
+	// 通过slTriggerPx字段判断是否设置了止损
+	if ordType, ok := order["ordType"].(string); ok && ordType == "conditional" {
+		if _, ok := order["slTriggerPx"].(string); ok && order["slTriggerPx"].(string) != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// isTakeProfitOrder 判断是否为止盈单
+func (t *OKXTrader) isTakeProfitOrder(order map[string]interface{}) bool {
+	// OKX使用ordType字段区分订单类型
+	// conditional: 条件单（包括止盈止损）
+	// 通过tpTriggerPx字段判断是否设置了止盈
+	if ordType, ok := order["ordType"].(string); ok && ordType == "conditional" {
+		if _, ok := order["tpTriggerPx"].(string); ok && order["tpTriggerPx"].(string) != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// isStopOrder 判断是否为止盈或止损单
+func (t *OKXTrader) isStopOrder(order map[string]interface{}) bool {
+	// OKX使用ordType字段区分订单类型
+	// conditional: 条件单（包括止盈止损）
+	if ordType, ok := order["ordType"].(string); ok && ordType == "conditional" {
+		return true
+	}
+	return false
+}
+
+// cancelOrder 取消指定订单
+func (t *OKXTrader) cancelOrder(symbol, orderID string) error {
+	okxSymbol := convertSymbolToOKX(symbol)
+
+	body := map[string]interface{}{
+		"instId": okxSymbol,
+		"ordId":  orderID,
+	}
+
+	bodyJSON, _ := json.Marshal(body)
+	_, err := t.doRequest("POST", "/api/v5/trade/cancel-order", string(bodyJSON))
+	return err
 }

@@ -198,7 +198,7 @@ func NewAutoTrader(config AutoTraderConfig, database interface{}, userID string)
 		}
 	case "okx":
 		log.Printf("🏦 [%s] 使用欧易(OKX)交易", config.Name)
-		trader = NewOKXTrader(config.OKXAPIKey, config.OKXSecretKey, config.OKXPassphrase, config.OKXTestnet)
+		trader, err = NewOKXTrader(config.OKXAPIKey, config.OKXSecretKey, config.OKXPassphrase, config.OKXTestnet)
 	default:
 		return nil, fmt.Errorf("不支持的交易平台: %s", config.Exchange)
 	}
