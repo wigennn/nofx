@@ -114,6 +114,8 @@ export interface Exchange {
   apiKey?: string
   secretKey?: string
   testnet?: boolean
+  // OKX 特定字段
+  okxPassphrase?: string
   // Hyperliquid 特定字段
   hyperliquidWalletAddr?: string
   // Aster 特定字段
@@ -157,6 +159,8 @@ export interface UpdateExchangeConfigRequest {
       api_key: string
       secret_key: string
       testnet?: boolean
+      // OKX 特定字段
+      okx_passphrase?: string
       // Hyperliquid 特定字段
       hyperliquid_wallet_addr?: string
       // Aster 特定字段

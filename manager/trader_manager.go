@@ -358,6 +358,12 @@ func (tm *TraderManager) AddTraderFromDB(traderCfg *config.TraderRecord, aiModel
 		traderConfig.AsterUser = exchangeCfg.AsterUser
 		traderConfig.AsterSigner = exchangeCfg.AsterSigner
 		traderConfig.AsterPrivateKey = exchangeCfg.AsterPrivateKey
+	} else if exchangeCfg.ID == "okx" {
+		traderConfig.OKXAPIKey = exchangeCfg.APIKey
+		traderConfig.OKXSecretKey = exchangeCfg.SecretKey
+		// OKX Passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案，后续可以添加专门字段）
+		traderConfig.OKXPassphrase = exchangeCfg.HyperliquidWalletAddr
+		traderConfig.OKXTestnet = exchangeCfg.Testnet
 	}
 
 	// 根据AI模型设置API密钥
@@ -1059,6 +1065,11 @@ func (tm *TraderManager) loadSingleTrader(traderCfg *config.TraderRecord, aiMode
 		traderConfig.AsterUser = exchangeCfg.AsterUser
 		traderConfig.AsterSigner = exchangeCfg.AsterSigner
 		traderConfig.AsterPrivateKey = exchangeCfg.AsterPrivateKey
+	} else if exchangeCfg.ID == "okx" {
+		traderConfig.OKXAPIKey = exchangeCfg.APIKey
+		traderConfig.OKXSecretKey = exchangeCfg.SecretKey
+		// OKX Passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案，后续可以添加专门字段）
+		traderConfig.OKXPassphrase = exchangeCfg.HyperliquidWalletAddr
 	}
 
 	// 根据AI模型设置API密钥

@@ -579,6 +579,7 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
               aster_user: exchange.asterUser || '',
               aster_signer: exchange.asterSigner || '',
               aster_private_key: exchange.asterPrivateKey || '',
+              passphrase: exchange.okxPassphrase || '',
             },
           ])
         ),
@@ -605,7 +606,8 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
     hyperliquidWalletAddr?: string,
     asterUser?: string,
     asterSigner?: string,
-    asterPrivateKey?: string
+    asterPrivateKey?: string,
+    okxPassphrase?: string
   ) => {
     try {
       // 找到要配置的交易所（从supportedExchanges中）
@@ -635,6 +637,7 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
                   asterUser,
                   asterSigner,
                   asterPrivateKey,
+                  okxPassphrase,
                   enabled: true,
                 }
               : e
@@ -650,6 +653,7 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
           asterUser,
           asterSigner,
           asterPrivateKey,
+          okxPassphrase,
           enabled: true,
         }
         updatedExchanges = [...(allExchanges || []), newExchange]
@@ -664,6 +668,7 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
               api_key: exchange.apiKey || '',
               secret_key: exchange.secretKey || '',
               testnet: exchange.testnet || false,
+              okx_passphrase: exchange.okxPassphrase || '',
               hyperliquid_wallet_addr: exchange.hyperliquidWalletAddr || '',
               aster_user: exchange.asterUser || '',
               aster_signer: exchange.asterSigner || '',
@@ -1762,7 +1767,8 @@ function ExchangeConfigModal({
     hyperliquidWalletAddr?: string,
     asterUser?: string,
     asterSigner?: string,
-    asterPrivateKey?: string
+    asterPrivateKey?: string,
+    okxPassphrase?: string
   ) => Promise<void>
   onDelete: (exchangeId: string) => void
   onClose: () => void
@@ -1953,7 +1959,7 @@ function ExchangeConfigModal({
       )
     } else if (selectedExchange?.id === 'okx') {
       if (!apiKey.trim() || !secretKey.trim() || !passphrase.trim()) return
-      await onSave(selectedExchangeId, apiKey.trim(), secretKey.trim(), testnet)
+      await onSave(selectedExchangeId, apiKey.trim(), secretKey.trim(), testnet, passphrase.trim(), undefined, undefined, undefined, passphrase.trim())
     } else {
       // 默认情况（其他CEX交易所）
       if (!apiKey.trim() || !secretKey.trim()) return
@@ -2096,7 +2102,8 @@ function ExchangeConfigModal({
             {selectedExchange && (
               <>
                 {/* Binance 和其他 CEX 交易所的字段 */}
-                {(selectedExchange.id === 'binance' ||
+                {(selectedExchange.id === 'okx' ||
+                        selectedExchange.id === 'binance' ||
                   selectedExchange.type === 'cex') &&
                   selectedExchange.id !== 'hyperliquid' &&
                   selectedExchange.id !== 'aster' && (
