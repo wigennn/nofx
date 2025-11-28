@@ -27,7 +27,8 @@ interface ExchangeConfigModalProps {
     hyperliquidWalletAddr?: string,
     asterUser?: string,
     asterSigner?: string,
-    asterPrivateKey?: string
+    asterPrivateKey?: string,
+    okxPassphrase?: string
   ) => Promise<void>
   onDelete: (exchangeId: string) => void
   onClose: () => void
@@ -85,7 +86,6 @@ export function ExchangeConfigModal({
     if (editingExchangeId && selectedExchange) {
       setApiKey(selectedExchange.apiKey || '')
       setSecretKey(selectedExchange.secretKey || '')
-      setPassphrase('') // Don't load existing passphrase for security
       setTestnet(selectedExchange.testnet || false)
 
       // Aster 字段
@@ -95,6 +95,13 @@ export function ExchangeConfigModal({
 
       // Hyperliquid 字段
       setHyperliquidWalletAddr(selectedExchange.hyperliquidWalletAddr || '')
+      
+      // OKX Passphrase 字段（从 okxPassphrase 或 hyperliquid_wallet_addr 字段读取，临时方案）
+      if (selectedExchange.id === 'okx') {
+        setPassphrase(selectedExchange.okxPassphrase || selectedExchange.hyperliquidWalletAddr || '')
+      } else {
+        setPassphrase('') // 非OKX交易所不显示passphrase
+      }
     }
   }, [editingExchangeId, selectedExchange])
 
@@ -227,7 +234,7 @@ export function ExchangeConfigModal({
       )
     } else if (selectedExchange?.id === 'okx') {
       if (!apiKey.trim() || !secretKey.trim() || !passphrase.trim()) return
-      await onSave(selectedExchangeId, apiKey.trim(), secretKey.trim(), testnet)
+      await onSave(selectedExchangeId, apiKey.trim(), secretKey.trim(), testnet, undefined, undefined, undefined, undefined, passphrase.trim())
     } else {
       // 默认情况（其他CEX交易所）
       if (!apiKey.trim() || !secretKey.trim()) return
@@ -371,10 +378,58 @@ export function ExchangeConfigModal({
               <>
                 {/* Binance 和其他 CEX 交易所的字段 */}
                 {(selectedExchange.id === 'binance' ||
-                  selectedExchange.type === 'cex') &&
-                  selectedExchange.id !== 'hyperliquid' &&
-                  selectedExchange.id !== 'aster' && (
+                  selectedExchange.id === 'okx' ||
+                  (selectedExchange.type === 'cex' &&
+                    selectedExchange.id !== 'hyperliquid' &&
+                    selectedExchange.id !== 'aster')) && (
                     <>
+                      {/* OKX 特殊配置区域 */}
+                      {selectedExchange.id === 'okx' && (
+                        <>
+                          {/* OKX API配置指南 */}
+                          <div
+                            className="p-4 rounded mb-4"
+                            style={{
+                              background: 'rgba(0, 123, 255, 0.1)',
+                              border: '1px solid rgba(0, 123, 255, 0.2)',
+                            }}
+                          >
+                            <div className="flex items-start gap-2">
+                              <span style={{ color: '#007BFF', fontSize: '16px' }}>
+                                ℹ️
+                              </span>
+                              <div className="flex-1">
+                                <div
+                                  className="text-sm font-semibold mb-2"
+                                  style={{ color: '#007BFF' }}
+                                >
+                                  {t('okxApiGuideTitle', language) || 'OKX API 配置说明'}
+                                </div>
+                                <div
+                                  className="text-xs mb-2 whitespace-pre-line"
+                                  style={{ color: '#848E9C', lineHeight: '1.5' }}
+                                >
+                                  {t('okxApiGuideDesc', language) || 
+                                    '1. 登录OKX官网 → 个人中心 → API管理\n' +
+                                    '2. 创建API密钥，选择"只读"或"交易"权限\n' +
+                                    '3. 设置Passphrase（请妥善保管，创建后无法查看）\n' +
+                                    '4. 记录API Key、Secret Key和Passphrase'}
+                                </div>
+                                <a
+                                  href="https://www.okx.com/support/hc/zh-cn/articles/360004923712"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-block text-xs hover:underline"
+                                  style={{ color: '#007BFF' }}
+                                >
+                                  📖 {t('viewOfficialGuide', language) || '查看OKX官方教程'} ↗
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+
                       {/* 币安用户配置提示 (D1 方案) */}
                       {selectedExchange.id === 'binance' && (
                         <div
@@ -519,27 +574,69 @@ export function ExchangeConfigModal({
                       </div>
 
                       {selectedExchange.id === 'okx' && (
-                        <div>
-                          <label
-                            className="block text-sm font-semibold mb-2"
-                            style={{ color: '#EAECEF' }}
-                          >
-                            {t('passphrase', language)}
-                          </label>
-                          <input
-                            type="password"
-                            value={passphrase}
-                            onChange={(e) => setPassphrase(e.target.value)}
-                            placeholder={t('enterPassphrase', language)}
-                            className="w-full px-3 py-2 rounded"
-                            style={{
-                              background: '#0B0E11',
-                              border: '1px solid #2B3139',
-                              color: '#EAECEF',
-                            }}
-                            required
-                          />
-                        </div>
+                        <>
+                          <div>
+                            <label
+                              className="block text-sm font-semibold mb-2"
+                              style={{ color: '#EAECEF' }}
+                            >
+                              {t('passphrase', language)}
+                            </label>
+                            <input
+                              type="password"
+                              value={passphrase}
+                              onChange={(e) => setPassphrase(e.target.value)}
+                              placeholder={t('enterPassphrase', language)}
+                              className="w-full px-3 py-2 rounded"
+                              style={{
+                                background: '#0B0E11',
+                                border: '1px solid #2B3139',
+                                color: '#EAECEF',
+                              }}
+                              required
+                            />
+                            <div
+                              className="text-xs mt-1"
+                              style={{ color: '#848E9C' }}
+                            >
+                              {t('okxPassphraseDesc', language)}
+                            </div>
+                          </div>
+
+                          {/* Testnet/模拟盘复选框 */}
+                          <div className="flex items-center gap-3 p-3 rounded" style={{
+                            background: testnet ? 'rgba(0, 123, 255, 0.1)' : '#0B0E11',
+                            border: `1px solid ${testnet ? 'rgba(0, 123, 255, 0.3)' : '#2B3139'}`,
+                          }}>
+                            <input
+                              type="checkbox"
+                              id="okx-testnet"
+                              checked={testnet}
+                              onChange={(e) => setTestnet(e.target.checked)}
+                              className="w-4 h-4 cursor-pointer"
+                              style={{
+                                accentColor: '#007BFF',
+                              }}
+                            />
+                            <label
+                              htmlFor="okx-testnet"
+                              className="flex-1 cursor-pointer"
+                              style={{ color: '#EAECEF' }}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span style={{ fontSize: '16px' }}>🎮</span>
+                                <div>
+                                  <div className="text-sm font-semibold">
+                                    {t('okxSimulatedTrading', language)}
+                                  </div>
+                                  <div className="text-xs" style={{ color: '#848E9C' }}>
+                                    {t('okxSimulatedTradingDesc', language)}
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </>
                       )}
 
                       {/* Binance 白名单IP提示 */}

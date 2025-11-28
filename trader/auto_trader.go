@@ -197,8 +197,15 @@ func NewAutoTrader(config AutoTraderConfig, database interface{}, userID string)
 			return nil, fmt.Errorf("初始化Aster交易器失败: %w", err)
 		}
 	case "okx":
-		log.Printf("🏦 [%s] 使用欧易(OKX)交易", config.Name)
+		if config.OKXTestnet {
+			log.Printf("🏦 [%s] 使用欧易(OKX)模拟盘交易", config.Name)
+		} else {
+			log.Printf("🏦 [%s] 使用欧易(OKX)实盘交易", config.Name)
+		}
 		trader, err = NewOKXTrader(config.OKXAPIKey, config.OKXSecretKey, config.OKXPassphrase, config.OKXTestnet)
+		if err != nil {
+			return nil, fmt.Errorf("初始化OKX交易器失败: %w", err)
+		}
 	default:
 		return nil, fmt.Errorf("不支持的交易平台: %s", config.Exchange)
 	}

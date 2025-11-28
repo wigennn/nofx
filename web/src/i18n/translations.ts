@@ -198,6 +198,18 @@ export const translations = {
     enterSigner: 'Enter Signer Address',
     enterSecretKey: 'Enter Secret Key',
     enterPassphrase: 'Enter Passphrase (Required for OKX)',
+    okxPassphraseDesc:
+      'Passphrase set when creating OKX API key, used for API signature verification',
+    okxSimulatedTrading: 'OKX Simulated Trading Mode',
+    okxSimulatedTradingDesc:
+      'Enable this option to use OKX simulated trading. Simulated trading uses the same API endpoint but all trades use simulated funds and will not generate real profits or losses.',
+    okxApiGuideTitle: 'OKX API Configuration Guide',
+    okxApiGuideDesc:
+      '1. Log in to OKX → Account Center → API Management\n' +
+      '2. Create API key, select "Read Only" or "Trade" permissions\n' +
+      '3. Set Passphrase (keep it safe, cannot be viewed after creation)\n' +
+      '4. Record API Key, Secret Key and Passphrase',
+    viewOfficialGuide: 'View OKX Official Guide',
     hyperliquidPrivateKeyDesc:
       'Hyperliquid uses private key for trading authentication',
     hyperliquidWalletAddressDesc:
@@ -1045,6 +1057,18 @@ export const translations = {
     enterUser: '输入用户名',
     enterSigner: '输入签名者地址',
     enterPassphrase: '输入Passphrase (OKX必填)',
+    okxPassphraseDesc:
+      'OKX API创建时设置的Passphrase，用于API签名验证',
+    okxSimulatedTrading: 'OKX 模拟盘模式',
+    okxSimulatedTradingDesc:
+      '启用此选项将使用OKX模拟盘进行交易。模拟盘使用相同的API端点，但所有交易都使用模拟资金，不会产生真实盈亏。',
+    okxApiGuideTitle: 'OKX API 配置说明',
+    okxApiGuideDesc:
+      '1. 登录OKX官网 → 个人中心 → API管理\n' +
+      '2. 创建API密钥，选择"只读"或"交易"权限\n' +
+      '3. 设置Passphrase（请妥善保管，创建后无法查看）\n' +
+      '4. 记录API Key、Secret Key和Passphrase',
+    viewOfficialGuide: '查看OKX官方教程',
     hyperliquidPrivateKeyDesc: 'Hyperliquid 使用私钥进行交易认证',
     hyperliquidWalletAddressDesc: '与私钥对应的钱包地址',
     // Hyperliquid 代理钱包 (新安全模型)

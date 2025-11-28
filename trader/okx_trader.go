@@ -41,6 +41,7 @@ type OKXTrader struct {
 }
 
 // NewOKXTrader 创建欧易交易器
+// testnet: true 表示使用模拟盘模式（通过 x-simulated-trading: 1 header 启用）
 func NewOKXTrader(apiKey, secretKey, passphrase string, testnet bool) (*OKXTrader, error) {
 	// 验证 API 密钥格式
 	if apiKey == "" || secretKey == "" || passphrase == "" {
@@ -51,8 +52,12 @@ func NewOKXTrader(apiKey, secretKey, passphrase string, testnet bool) (*OKXTrade
 	}
 
 	baseURL := "https://www.okx.com"
+	// OKX 模拟盘使用相同的 API 端点，通过 x-simulated-trading: 1 header 区分
 	if testnet {
-		baseURL = "https://www.okx.com" // OKX测试网使用相同URL，通过header区分
+		log.Printf("🎮 OKX 模拟盘模式已启用（所有交易将使用模拟资金）")
+		log.Printf("   💡 提示: 模拟盘使用相同的 API 端点，通过 x-simulated-trading header 启用")
+	} else {
+		log.Printf("💰 OKX 实盘模式（真实资金交易）")
 	}
 
 	return &OKXTrader{
@@ -93,7 +98,8 @@ func (t *OKXTrader) doRequest(method, endpoint, body string) ([]byte, error) {
 	req.Header.Set("OK-ACCESS-SIGN", signature)
 	req.Header.Set("OK-ACCESS-TIMESTAMP", timestamp)
 	req.Header.Set("OK-ACCESS-PASSPHRASE", t.passphrase)
-	// OKX 模拟盘：x-simulated-trading: 1
+	// OKX 模拟盘：通过 x-simulated-trading: 1 header 启用模拟盘模式
+	// 模拟盘使用相同的 API 端点，但所有交易都使用模拟资金
 	if t.testnet {
 		req.Header.Set("x-simulated-trading", "1")
 	}

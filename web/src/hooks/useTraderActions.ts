@@ -497,7 +497,8 @@ export function useTraderActions({
     hyperliquidWalletAddr?: string,
     asterUser?: string,
     asterSigner?: string,
-    asterPrivateKey?: string
+    asterPrivateKey?: string,
+    okxPassphrase?: string
   ) => {
     try {
       // 找到要配置的交易所(从supportedExchanges中)
@@ -523,10 +524,12 @@ export function useTraderActions({
                   apiKey,
                   secretKey,
                   testnet,
-                  hyperliquidWalletAddr,
+                  // OKX passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案）
+                  hyperliquidWalletAddr: exchangeId === 'okx' ? (okxPassphrase || '') : hyperliquidWalletAddr,
                   asterUser,
                   asterSigner,
                   asterPrivateKey,
+                  okxPassphrase: exchangeId === 'okx' ? okxPassphrase : undefined,
                   enabled: true,
                 }
               : e
@@ -538,10 +541,12 @@ export function useTraderActions({
           apiKey,
           secretKey,
           testnet,
-          hyperliquidWalletAddr,
+          // OKX passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案）
+          hyperliquidWalletAddr: exchangeId === 'okx' ? (okxPassphrase || '') : hyperliquidWalletAddr,
           asterUser,
           asterSigner,
           asterPrivateKey,
+          okxPassphrase: exchangeId === 'okx' ? okxPassphrase : undefined,
           enabled: true,
         }
         updatedExchanges = [...(allExchanges || []), newExchange]
@@ -556,7 +561,10 @@ export function useTraderActions({
               api_key: exchange.apiKey || '',
               secret_key: exchange.secretKey || '',
               testnet: exchange.testnet || false,
-              hyperliquid_wallet_addr: exchange.hyperliquidWalletAddr || '',
+              // OKX passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案，后端兼容）
+              hyperliquid_wallet_addr: exchange.id === 'okx' 
+                ? (exchange.okxPassphrase || exchange.hyperliquidWalletAddr || '')
+                : (exchange.hyperliquidWalletAddr || ''),
               aster_user: exchange.asterUser || '',
               aster_signer: exchange.asterSigner || '',
               aster_private_key: exchange.asterPrivateKey || '',

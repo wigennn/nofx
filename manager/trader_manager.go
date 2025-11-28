@@ -1070,6 +1070,7 @@ func (tm *TraderManager) loadSingleTrader(traderCfg *config.TraderRecord, aiMode
 		traderConfig.OKXSecretKey = exchangeCfg.SecretKey
 		// OKX Passphrase 存储在 hyperliquid_wallet_addr 字段（临时方案，后续可以添加专门字段）
 		traderConfig.OKXPassphrase = exchangeCfg.HyperliquidWalletAddr
+		traderConfig.OKXTestnet = exchangeCfg.Testnet
 	}
 
 	// 根据AI模型设置API密钥
