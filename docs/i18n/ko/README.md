@@ -6,6 +6,11 @@
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Backed by Amber.ac](https://img.shields.io/badge/Backed%20by-Amber.ac-orange.svg)](https://amber.ac)
 
+| 🎁 **기여자 에어드롭 프로그램** |
+|:----------------------------------:|
+| 코드 · 버그 수정 · Issue → 에어드롭 |
+| [자세히 보기](#-기여자-에어드롭-프로그램) |
+
 **언어 / Languages:** [English](../../../README.md) | [中文](../zh-CN/README.md) | [Українська](../uk/README.md) | [Русский](../ru/README.md) | [日本語](../ja/README.md) | [한국어](README.md) | [Tiếng Việt](../vi/README.md)
 
 **📚 문서:** [문서 홈](../../README.md) | [시작 가이드](../../getting-started/README.md) | [커뮤니티](../../community/README.md) | [변경 로그](../../../CHANGELOG.md) | [⚠️ 면책 조항](../../../DISCLAIMER.md)
@@ -16,14 +21,12 @@
 
 - [🚀 범용 AI 트레이딩 운영 체제](#-범용-ai-트레이딩-운영-체제)
 - [👥 개발자 커뮤니티](#-개발자-커뮤니티)
-- [🆕 최신 업데이트](#-최신-업데이트)
 - [📸 시스템 스크린샷](#-시스템-스크린샷)
+- [🏦 지원 거래소 (DEX/CEX 튜토리얼)](#-지원-거래소-dexcex-튜토리얼)
+- [🤖 지원 AI 모델](#-지원-ai-모델)
 - [✨ 현재 구현](#-현재-구현---암호화폐-시장)
 - [🔮 로드맵](#-로드맵---범용-시장-확장)
 - [🏗️ 기술 아키텍처](#️-기술-아키텍처)
-- [💰 바이낸스 계정 등록](#-바이낸스-계정-등록-수수료-절약)
-- [🔷 Hyperliquid 계정 등록](#hyperliquid-거래소)
-- [🔶 Aster DEX 계정 등록](#aster-dex-거래소-신규-v202)
 - [🚀 빠른 시작](#-빠른-시작)
 - [📖 AI 의사결정 흐름](#-ai-의사결정-흐름)
 - [🧠 AI 자가학습 예시](#-ai-자가학습-예시)
@@ -34,6 +37,7 @@
 - [🔄 변경 로그](#-변경-로그)
 - [📄 라이선스](#-라이선스)
 - [🤝 기여하기](#-기여하기)
+- [🎁 기여자 에어드롭 프로그램](#-기여자-에어드롭-프로그램)
 
 ---
 
@@ -72,64 +76,6 @@
 
 ---
 
-## 🆕 최신 업데이트
-
-### 🚀 다중 거래소 지원!
-
-NOFX는 이제 **세 개의 주요 거래소**를 지원합니다: Binance, Hyperliquid, Aster DEX!
-
-#### **Hyperliquid 거래소**
-
-고성능 탈중앙화 무기한 선물 거래소!
-
-**주요 기능:**
-- ✅ 완전한 거래 지원 (롱/숏, 레버리지, 손절/익절)
-- ✅ 자동 정밀도 처리 (주문 크기 및 가격)
-- ✅ 통합 트레이더 인터페이스 (원활한 거래소 전환)
-- ✅ 메인넷 및 테스트넷 모두 지원
-- ✅ API 키 불필요 - 이더리움 개인키만 필요
-
-**왜 Hyperliquid인가?**
-- 🔥 중앙화 거래소보다 낮은 수수료
-- 🔒 비수탁형 - 자산을 직접 관리
-- ⚡ 온체인 결제로 빠른 실행
-- 🌍 KYC 불필요
-
-**빠른 시작:**
-1. MetaMask 개인키 가져오기 (`0x` 접두사 제거)
-2. ~~config.json에서 `"exchange": "hyperliquid"` 설정~~ *웹 인터페이스를 통해 구성*
-3. `"hyperliquid_private_key": "your_key"` 추가
-4. 거래 시작!
-
-자세한 내용은 [구성 가이드](#hyperliquid-거래소)를 참조하세요.
-
-#### **Aster DEX 거래소** (신규! v2.0.2)
-
-바이낸스 호환 탈중앙화 무기한 선물 거래소!
-
-**주요 기능:**
-- ✅ 바이낸스 스타일 API (바이낸스에서 쉽게 마이그레이션)
-- ✅ Web3 지갑 인증 (안전하고 탈중앙화)
-- ✅ 자동 정밀도 처리와 완전한 거래 지원
-- ✅ CEX보다 낮은 거래 수수료
-- ✅ EVM 호환 (이더리움, BSC, 폴리곤 등)
-
-**왜 Aster인가?**
-- 🎯 **바이낸스 호환 API** - 최소한의 코드 변경 필요
-- 🔐 **API 지갑 시스템** - 보안을 위한 별도 거래 지갑
-- 💰 **경쟁력 있는 수수료** - 대부분의 중앙화 거래소보다 낮음
-- 🌐 **멀티체인 지원** - 선호하는 EVM 체인에서 거래
-
-**빠른 시작:**
-1. [Aster 추천 링크](https://www.asterdex.com/en/referral/fdfc0e)를 통해 등록 (수수료 할인 혜택!)
-2. [Aster API Wallet](https://www.asterdex.com/en/api-wallet) 방문
-3. 메인 지갑 연결 및 API 지갑 생성
-4. API Signer 주소와 개인키 복사
-5. config.json에서 `"exchange": "aster"` 설정
-6. `"aster_user"`, `"aster_signer"`, `"aster_private_key"` 추가
-
----
-
 ## 📸 시스템 스크린샷
 
 ### 🏆 경쟁 모드 - 실시간 AI 배틀
@@ -143,6 +89,40 @@ NOFX는 이제 **세 개의 주요 거래소**를 지원합니다: Binance, Hype
 ---
 
 > 📘 **참고**: 이것은 간소화된 한국어 버전 README입니다. 시스템 아키텍처, API 인터페이스 및 고급 구성을 포함한 전체 기술 문서는 [영문 버전](../../../README.md) 또는 [중문 버전](../zh-CN/README.md)을 참조하세요.
+
+---
+
+## 🏦 지원 거래소 (DEX/CEX 튜토리얼)
+
+### CEX (중앙화 거래소)
+
+| 거래소 | 상태 | 등록 (수수료 할인) | API 설정 |
+|--------|------|-------------------|----------|
+| **Binance** | ✅ 지원됨 | [등록](https://www.binance.com/join?ref=NOFXKOREA) | [API 가이드](../../getting-started/binance-api.md) |
+| **Bybit** | ✅ 지원됨 | [등록](https://partner.bybit.com/b/83856) | [API 가이드](../../getting-started/bybit-api.md) |
+| **OKX** | ✅ 지원됨 | [등록](https://www.okx.com/join/1865360) | [API 가이드](../../getting-started/okx-api.md) |
+
+### Perp-DEX (탈중앙화 무기한 거래소)
+
+| 거래소 | 상태 | 등록 (수수료 할인) | 에이전트 지갑 설정 |
+|--------|------|-------------------|-------------------|
+| **Hyperliquid** | ✅ 지원됨 | [등록](https://app.hyperliquid.xyz/join/AITRADING) | [에이전트 지갑 가이드](../../getting-started/hyperliquid-agent-wallet.md) |
+| **Aster DEX** | ✅ 지원됨 | [등록](https://www.asterdex.com/en/referral/fdfc0e) | [API 지갑 가이드](../../getting-started/aster-api-wallet.md) |
+| **Lighter** | ✅ 지원됨 | [등록](https://lighter.xyz) | [에이전트 지갑 가이드](../../getting-started/lighter-agent-wallet.md) |
+
+---
+
+## 🤖 지원 AI 모델
+
+| AI 모델 | 상태 | API 키 받기 |
+|---------|------|-------------|
+| **DeepSeek** | ✅ 지원됨 | [API 키 받기](https://platform.deepseek.com) |
+| **Qwen** | ✅ 지원됨 | [API 키 받기](https://dashscope.console.aliyun.com) |
+| **OpenAI (GPT)** | ✅ 지원됨 | [API 키 받기](https://platform.openai.com) |
+| **Claude** | ✅ 지원됨 | [API 키 받기](https://console.anthropic.com) |
+| **Gemini** | ✅ 지원됨 | [API 키 받기](https://aistudio.google.com) |
+| **Grok** | ✅ 지원됨 | [API 키 받기](https://console.x.ai) |
+| **Kimi** | ✅ 지원됨 | [API 키 받기](https://platform.moonshot.cn) |
 
 ---
 
@@ -240,34 +220,6 @@ NOFX는 현대적이고 모듈화된 아키텍처로 구축되었습니다:
 📖 **자세한 아키텍처 문서는 다음을 참조하세요:**
 - **English:** [Architecture Documentation](../../architecture/README.md)
 - **中文:** [架构文档](../../architecture/README.zh-CN.md)
-
----
-
-## 💰 바이낸스 계정 등록 (수수료 절약!)
-
-이 시스템을 사용하기 전에 바이낸스 선물 계정이 필요합니다. **추천 링크를 사용하여 거래 수수료를 절약하세요:**
-
-**🎁 [바이낸스 등록 - 수수료 할인 받기](https://www.binance.com/join?ref=NOFXKOREA)**
-
-### 등록 단계:
-
-1. **위 링크를 클릭**하여 바이낸스 등록 페이지 방문
-2. 이메일/전화번호로 **등록 완료**
-3. **KYC 인증 완료** (선물 거래 필수)
-4. **선물 계정 활성화**:
-   - 바이낸스 홈페이지 → 파생상품 → USD-M 선물로 이동
-   - "지금 개설"을 클릭하여 선물 거래 활성화
-5. **API 키 생성**:
-   - 계정 → API 관리로 이동
-   - 새 API 키 생성, **"선물" 권한 활성화**
-   - API Key와 Secret Key 저장 (웹 인터페이스에 필요)
-   - **중요**: 보안을 위해 IP 주소를 화이트리스트에 추가
-
-### 수수료 할인 혜택:
-
-- ✅ **현물 거래**: 최대 30% 수수료 할인
-- ✅ **선물 거래**: 최대 30% 수수료 할인
-- ✅ **평생 유효**: 모든 거래에 대한 영구 할인
 
 ---
 
@@ -721,6 +673,38 @@ Issue 및 Pull Request를 환영합니다!
 3. 변경 사항 커밋 (`git commit -m 'Add some AmazingFeature'`)
 4. 브랜치에 푸시 (`git push origin feature/AmazingFeature`)
 5. Pull Request 열기
+
+---
+
+## 🎁 기여자 에어드롭 프로그램
+
+모든 기여는 GitHub에서 추적됩니다. NOFX가 수익을 창출하면, 기여자는 기여도에 따라 에어드롭을 받게 됩니다.
+
+### 🔥 우선 보상: 고정된 Issue
+
+**[고정된 Issue](https://github.com/NoFxAiOS/nofx/issues)를 해결하는 PR은 최고 보상을 받습니다!**
+
+고정된 Issue에서 우선순위 높은 기능과 버그를 확인하세요 - 보너스 배율이 적용됩니다.
+
+### 기여 가중치
+
+| 기여 유형 | 가중치 | 설명 |
+|----------|:------:|------|
+| **🔥 고정된 Issue PR** | ⭐⭐⭐⭐⭐⭐ | 고정된/우선순위 Issue를 해결하는 PR (최고 보상) |
+| **코드 커밋** (병합된 PR) | ⭐⭐⭐⭐⭐ | 핵심 기능, 최적화, 새로운 통합 |
+| **버그 수정** | ⭐⭐⭐⭐ | 확인된 버그 수정 |
+| **기능 제안** (채택된 Issue) | ⭐⭐⭐ | 구현된 아이디어 |
+| **버그 보고** (확인됨) | ⭐⭐ | 재현 가능한 유효한 버그 보고 |
+| **문서** | ⭐⭐ | 번역, 가이드, 튜토리얼 |
+
+### 작동 방식
+
+1. **고정된 Issue 확인** - 우선순위 높은 작업, 보너스 보상
+2. **기여** - PR 제출, 버그 보고, 기능 제안
+3. **추적** - 모든 기여는 GitHub 활동으로 기록
+4. **획득** - 기여 가중치에 비례하여 에어드롭 수령
+
+> 💡 [고정된 Issue](https://github.com/NoFxAiOS/nofx/issues)부터 시작하여 최고 보상을 받으세요!
 
 ---
 

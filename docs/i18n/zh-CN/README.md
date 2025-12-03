@@ -6,6 +6,11 @@
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Backed by Amber.ac](https://img.shields.io/badge/Backed%20by-Amber.ac-orange.svg)](https://amber.ac)
 
+| 🎁 **贡献者空投计划** |
+|:----------------------------------:|
+| 代码提交 · Bug修复 · Issue反馈 → 空投 |
+| [了解详情](#-贡献者空投计划) |
+
 **语言 / Languages:** [English](../../../README.md) | [中文](../zh-CN/README.md) | [Українська](../uk/README.md) | [Русский](../ru/README.md) | [日本語](../ja/README.md) | [한국어](../ko/README.md) | [Tiếng Việt](../vi/README.md)
 
 **📚 文档中心:** [文档首页](../../README.md) | [快速开始](../../getting-started/README.zh-CN.md) | [更新日志](../../../CHANGELOG.zh-CN.md) | [社区指南](../../community/README.md) | [⚠️ 免责声明](../../../DISCLAIMER.md)
@@ -16,14 +21,12 @@
 
 - [🚀 通用AI交易操作系统](#-通用ai交易操作系统)
 - [👥 开发者社区](#-开发者社区)
-- [🆕 最新更新](#-最新更新)
 - [📸 系统截图](#-系统截图)
+- [🏦 支持的交易所（DEX/CEX教程）](#-支持的交易所dexcex教程)
+- [🤖 支持的AI模型](#-支持的ai模型)
 - [✨ 当前实现](#-当前实现---加密货币市场)
 - [🔮 路线图](#-路线图---通用市场扩展)
 - [🏗️ 技术架构](#️-技术架构)
-- [💰 注册币安账户](#-注册币安账户省手续费)
-- [🔷 注册Hyperliquid账户](#-使用hyperliquid交易所)
-- [🔶 注册Aster DEX账户](#-使用aster-dex交易所)
 - [🚀 快速开始](#-快速开始)
 - [📖 AI决策流程](#-ai决策流程)
 - [🧠 AI自我学习示例](#-ai自我学习示例)
@@ -37,6 +40,7 @@
 - [🔄 更新日志](#-更新日志)
 - [📄 开源协议](#-开源协议)
 - [🤝 贡献指南](#-贡献指南)
+- [🎁 贡献者空投计划](#-贡献者空投计划)
 
 ---
 
@@ -75,64 +79,6 @@
 
 ---
 
-## 🆕 最新更新
-
-### 🚀 多交易所支持！
-
-NOFX现已支持**三大交易所**：Binance、Hyperliquid和Aster DEX！
-
-#### **Hyperliquid交易所**
-
-高性能的去中心化永续期货交易所！
-
-**核心特性：**
-- ✅ 完整交易支持（做多/做空、杠杆、止损/止盈）
-- ✅ 自动精度处理（订单数量和价格）
-- ✅ 统一trader接口（无缝切换交易所）
-- ✅ 支持主网和测试网
-- ✅ 无需API密钥 - 只需以太坊私钥
-
-**为什么选择Hyperliquid？**
-- 🔥 比中心化交易所手续费更低
-- 🔒 非托管 - 你掌控自己的资金
-- ⚡ 快速执行与链上结算
-- 🌍 无需KYC
-
-**快速开始：**
-1. 获取你的MetaMask私钥（去掉`0x`前缀）
-2. ~~在config.json中设置`"exchange": "hyperliquid"`~~ *通过Web界面配置*
-3. 添加`"hyperliquid_private_key": "your_key"`
-4. 开始交易！
-
-详见[配置指南](#-备选使用hyperliquid交易所)。
-
-#### **Aster DEX交易所**（新！v2.0.2）
-
-兼容Binance的去中心化永续期货交易所！
-
-**核心特性：**
-- ✅ Binance风格API（从Binance轻松迁移）
-- ✅ Web3钱包认证（安全且去中心化）
-- ✅ 完整交易支持，自动精度处理
-- ✅ 比中心化交易所手续费更低
-- ✅ 兼容EVM（以太坊、BSC、Polygon等）
-
-**为什么选择Aster？**
-- 🎯 **兼容Binance API** - 需要最少的代码修改
-- 🔐 **API钱包系统** - 独立交易钱包提升安全性
-- 💰 **有竞争力的手续费** - 比大多数中心化交易所更低
-- 🌐 **多链支持** - 在你喜欢的EVM链上交易
-
-**快速开始：**
-1. 通过[推荐链接注册Aster](https://www.asterdex.com/en/referral/fdfc0e)（享手续费优惠）
-2. 访问[Aster API钱包](https://www.asterdex.com/en/api-wallet)
-3. 连接你的主钱包并创建API钱包
-4. 复制API Signer地址和私钥
-5. 在config.json中设置`"exchange": "aster"`
-6. 添加`"aster_user"`、`"aster_signer"`和`"aster_private_key"`
-
----
-
 ## 📸 系统截图
 
 ### 🏆 竞赛模式 - AI实时对战
@@ -142,6 +88,40 @@ NOFX现已支持**三大交易所**：Binance、Hyperliquid和Aster DEX！
 ### 📊 交易详情 - 完整交易仪表盘
 ![详情页面](../../../screenshots/details-page.png)
 *专业交易界面，包含权益曲线、实时持仓、AI决策日志，支持展开查看输入提示词和AI思维链推理过程*
+
+---
+
+## 🏦 支持的交易所（DEX/CEX教程）
+
+### CEX（中心化交易所）
+
+| 交易所 | 状态 | 注册（手续费优惠） | API设置 |
+|--------|------|-------------------|---------|
+| **Binance** | ✅ 已支持 | [注册](https://www.binance.com/join?ref=NOFXCHI) | [API指南](../../getting-started/binance-api.md) |
+| **Bybit** | ✅ 已支持 | [注册](https://partner.bybit.com/b/83856) | [API指南](../../getting-started/bybit-api.md) |
+| **OKX** | ✅ 已支持 | [注册](https://www.okx.com/join/1865360) | [API指南](../../getting-started/okx-api.md) |
+
+### Perp-DEX（去中心化永续交易所）
+
+| 交易所 | 状态 | 注册（手续费优惠） | 代理钱包设置 |
+|--------|------|-------------------|--------------|
+| **Hyperliquid** | ✅ 已支持 | [注册](https://app.hyperliquid.xyz/join/AITRADING) | [代理钱包指南](../../getting-started/hyperliquid-agent-wallet.md) |
+| **Aster DEX** | ✅ 已支持 | [注册](https://www.asterdex.com/en/referral/fdfc0e) | [API钱包指南](../../getting-started/aster-api-wallet.md) |
+| **Lighter** | ✅ 已支持 | [注册](https://lighter.xyz) | [代理钱包指南](../../getting-started/lighter-agent-wallet.md) |
+
+---
+
+## 🤖 支持的AI模型
+
+| AI模型 | 状态 | 获取API密钥 |
+|--------|------|-------------|
+| **DeepSeek** | ✅ 已支持 | [获取API密钥](https://platform.deepseek.com) |
+| **Qwen (通义千问)** | ✅ 已支持 | [获取API密钥](https://dashscope.console.aliyun.com) |
+| **OpenAI (GPT)** | ✅ 已支持 | [获取API密钥](https://platform.openai.com) |
+| **Claude** | ✅ 已支持 | [获取API密钥](https://console.anthropic.com) |
+| **Gemini** | ✅ 已支持 | [获取API密钥](https://aistudio.google.com) |
+| **Grok** | ✅ 已支持 | [获取API密钥](https://console.x.ai) |
+| **Kimi (月之暗面)** | ✅ 已支持 | [获取API密钥](https://platform.moonshot.cn) |
 
 ---
 
@@ -239,34 +219,6 @@ NOFX 采用现代化的模块化架构：
 📖 **详细架构文档，请查看：**
 - **中文版：** [架构文档](../../architecture/README.zh-CN.md)
 - **English:** [Architecture Documentation](../../architecture/README.md)
-
----
-
-## 💰 注册币安账户（省手续费！）
-
-使用本系统前，您需要一个币安合约账户。**使用我们的推荐链接注册可享受手续费优惠：**
-
-**🎁 [注册币安 - 享手续费折扣](https://www.binance.com/join?ref=NOFXCHI)**
-
-### 注册步骤：
-
-1. **点击上方链接** 访问币安注册页面
-2. **完成注册** 使用邮箱/手机号注册
-3. **完成KYC身份认证**（合约交易必须）
-4. **开通合约账户**：
-   - 进入币安首页 → 衍生品 → U本位合约
-   - 点击"立即开通"激活合约交易
-5. **创建API密钥**：
-   - 进入账户 → API管理
-   - 创建新的API密钥，**务必勾选"合约"权限**
-   - 保存API Key和Secret Key（~~config.json中需要~~ *Web界面中需要*）
-   - **重要**：添加IP白名单以确保安全
-
-### 手续费优惠说明：
-
-- ✅ **现货交易**：最高享30%手续费返佣
-- ✅ **合约交易**：最高享30%手续费返佣
-- ✅ **终身有效**：永久享受交易手续费折扣
 
 ---
 
@@ -477,184 +429,6 @@ cp config.json.example config.json
 - [ ] `use_default_coins`设为`true`（新手）
 - [ ] `initial_balance`与您的账户余额匹配
 - [ ] 文件保存为`config.json`（不是`.example`）
-
----
-
-#### 🔷 使用Hyperliquid交易所
-
-### 📝 注册与设置指南
-
-**步骤1：注册Hyperliquid账户**
-
-1. **通过邀请链接访问Hyperliquid**（享受优惠！）：
-
-   **🎁 [注册Hyperliquid - 加入AITRADING](https://app.hyperliquid.xyz/join/AITRADING)**
-
-2. **连接你的钱包**：
-   - 点击右上角"Connect Wallet"
-   - 选择MetaMask、WalletConnect或其他Web3钱包
-   - 批准连接
-
-3. **启用交易**：
-   - 首次连接会提示你签名消息
-   - 这会授权你的钱包进行交易（无gas费）
-   - 你将看到钱包地址显示出来
-
-**步骤2：为钱包充值**
-
-1. **将资产桥接到Arbitrum**：
-   - Hyperliquid运行在Arbitrum L2上
-   - 从以太坊主网或其他链桥接USDC
-   - 或者直接从交易所提现USDC到Arbitrum
-
-2. **充值到Hyperliquid**：
-   - 在Hyperliquid界面点击"Deposit"
-   - 选择要充值的USDC数量
-   - 确认交易（Arbitrum上的小额gas费）
-   - 资金会在几秒内到达你的Hyperliquid账户
-
-**步骤3：设置代理钱包（推荐）**
-
-Hyperliquid支持**代理钱包**功能 - 专门用于交易自动化的安全子钱包！
-
-⚠️ **为什么使用代理钱包：**
-- ✅ **更安全**：永远不暴露主钱包私钥
-- ✅ **权限受限**：代理钱包只有交易权限
-- ✅ **可随时撤销**：可从Hyperliquid界面随时禁用
-- ✅ **资金隔离**：保持主要资产安全
-
-**如何创建代理钱包：**
-
-1. **登录Hyperliquid**，使用你的主钱包
-   - 访问 [https://app.hyperliquid.xyz](https://app.hyperliquid.xyz)
-   - 连接你注册时使用的钱包（来自邀请链接）
-
-2. **进入代理设置**：
-   - 点击钱包地址（右上角）
-   - 进入"Settings" → "API & Agents"
-   - 或直接访问：[https://app.hyperliquid.xyz/agents](https://app.hyperliquid.xyz/agents)
-
-3. **创建新代理**：
-   - 点击"Create Agent"或"Add Agent"
-   - 系统会自动生成新的代理钱包
-   - **保存代理钱包地址**（以`0x`开头）
-   - **保存代理私钥**（仅显示一次！）
-
-4. **代理钱包详情**：
-   - 主钱包：你连接的钱包（持有资金）
-   - 代理钱包：用于交易的子钱包（NOFX将使用此钱包）
-   - 私钥：仅用于NOFX配置
-
-5. **为代理充值**（可选）：
-   - 从主钱包转账USDC到代理钱包
-   - 或保持资金在主钱包（代理可以从主钱包交易）
-
-6. **保存NOFX配置凭据**：
-   - 主钱包地址：`0xYourMainWalletAddress`（保留`0x`前缀）
-   - 代理私钥：`YourAgentPrivateKeyWithout0x`（去掉`0x`前缀）
-
----
-
-~~**配置`config.json`**~~ *通过Web界面配置*
-
-```json
-{
-  "traders": [
-    {
-      "id": "hyperliquid_trader",
-      "name": "My Hyperliquid Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "hyperliquid",
-      "hyperliquid_private_key": "your_agent_private_key_without_0x",
-      "hyperliquid_wallet_addr": "0xYourMainWalletAddress",
-      "hyperliquid_testnet": false,
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080
-}
-```
-
-**关键配置字段：**
-- `"exchange": "hyperliquid"` - 设置交易所为Hyperliquid
-- `hyperliquid_private_key` - 代理钱包私钥（去掉`0x`前缀）
-- `hyperliquid_wallet_addr` - 主钱包地址（保留`0x`前缀）
-- `hyperliquid_testnet: false` - 使用主网（设为`true`使用测试网）
-
-**⚠️ 安全提示**：
-- 优先使用代理钱包而非主钱包私钥
-- 切勿分享你的私钥
-- 可以随时从Hyperliquid界面撤销代理权限
-- 定期检查代理钱包活动
-
----
-
-#### 🔶 使用Aster DEX交易所
-
-**NOFX支持Aster DEX** - 兼容Binance的去中心化永续期货交易所！
-
-**为什么选择Aster？**
-- 🎯 兼容Binance API（轻松迁移）
-- 🔐 API钱包安全系统
-- 💰 更低的交易手续费
-- 🌐 多链支持（ETH、BSC、Polygon）
-- 🌍 无需KYC
-
-**步骤1**：注册并创建Aster API钱包
-
-1. 通过[推荐链接注册Aster](https://www.asterdex.com/en/referral/fdfc0e)（享手续费优惠）
-2. 访问[Aster API钱包](https://www.asterdex.com/en/api-wallet)
-3. 连接你的主钱包（MetaMask、WalletConnect等）
-4. 点击"创建API钱包"
-5. **立即保存这3项：**
-   - 主钱包地址（User）
-   - API钱包地址（Signer）
-   - API钱包私钥（⚠️ 仅显示一次！）
-
-~~**步骤2**：为Aster配置`config.json`~~ *通过Web界面配置*
-
-```json
-{
-  "traders": [
-    {
-      "id": "aster_deepseek",
-      "name": "Aster DeepSeek Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "aster",
-
-      "aster_user": "0xYOUR_MAIN_WALLET_ADDRESS_HERE",
-      "aster_signer": "0xYOUR_API_WALLET_SIGNER_ADDRESS_HERE",
-      "aster_private_key": "your_api_wallet_private_key_without_0x_prefix",
-
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080,
-  "leverage": {
-    "btc_eth_leverage": 5,
-    "altcoin_leverage": 5
-  }
-}
-```
-
-**关键配置字段：**
-- `"exchange": "aster"` - 设置交易所为Aster
-- `aster_user` - 你的主钱包地址
-- `aster_signer` - API钱包地址（来自步骤1）
-- `aster_private_key` - API钱包私钥（去掉`0x`前缀）
-
-**⚠️ 安全提示**：
-- API钱包与主钱包分离（额外的安全层）
-- 切勿分享API私钥
-- 你可以随时在[asterdex.com](https://www.asterdex.com/en/api-wallet)撤销API钱包访问
 
 ---
 
@@ -1353,6 +1127,38 @@ sudo apt-get install libta-lib0-dev
 3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启Pull Request
+
+---
+
+## 🎁 贡献者空投计划
+
+所有贡献都会在 GitHub 上记录。当 NOFX 产生收益时，贡献者将根据贡献获得空投。
+
+### 🔥 重点奖励：置顶Issue
+
+**解决 [置顶Issue](https://github.com/NoFxAiOS/nofx/issues) 的PR将获得最高奖励！**
+
+查看我们的置顶Issue，了解高优先级功能和Bug - 这些都有额外奖励加成。
+
+### 贡献权重
+
+| 贡献类型 | 权重 | 说明 |
+|---------|:----:|------|
+| **🔥 置顶Issue PR** | ⭐⭐⭐⭐⭐⭐ | 解决置顶/优先Issue的PR（最高奖励） |
+| **代码提交** (合并的PR) | ⭐⭐⭐⭐⭐ | 核心功能、优化、新集成 |
+| **Bug修复** | ⭐⭐⭐⭐ | 修复已确认的Bug |
+| **功能建议** (被采纳的Issue) | ⭐⭐⭐ | 被实现的想法和建议 |
+| **Bug反馈** (已确认) | ⭐⭐ | 提交可复现的有效Bug |
+| **文档贡献** | ⭐⭐ | 翻译、指南、教程 |
+
+### 运作方式
+
+1. **查看置顶Issue** - 高优先级任务，额外奖励
+2. **贡献** - 提交PR、报告Bug、建议功能
+3. **记录** - 所有贡献通过GitHub活动记录
+4. **获得** - 按贡献权重比例获得空投
+
+> 💡 从 [置顶Issue](https://github.com/NoFxAiOS/nofx/issues) 开始，获得最高奖励！
 
 ---
 

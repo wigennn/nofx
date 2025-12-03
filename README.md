@@ -6,6 +6,11 @@
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Backed by Amber.ac](https://img.shields.io/badge/Backed%20by-Amber.ac-orange.svg)](https://amber.ac)
 
+| 🎁 **CONTRIBUTOR AIRDROP PROGRAM** |
+|:----------------------------------:|
+| Code · Bug Fixes · Issues → Airdrop |
+| [Learn More](#-contributor-airdrop-program) |
+
 **Languages:** [English](README.md) | [中文](docs/i18n/zh-CN/README.md) | [Українська](docs/i18n/uk/README.md) | [Русский](docs/i18n/ru/README.md) | [日本語](docs/i18n/ja/README.md) | [한국어](docs/i18n/ko/README.md) | [Tiếng Việt](docs/i18n/vi/README.md)
 
 **📚 Documentation:** [Docs Home](docs/README.md) | [Getting Started](docs/getting-started/README.md) | [Prompt Writing Guide](docs/prompt-guide.md) ([中文](docs/prompt-guide.zh-CN.md)) | [Changelog](CHANGELOG.md) | [Contributing](CONTRIBUTING.md) | [Security](SECURITY.md) | [⚠️ Disclaimer](DISCLAIMER.md)
@@ -16,14 +21,12 @@
 
 - [🚀 Universal AI Trading Operating System](#-universal-ai-trading-operating-system)
 - [👥 Developer Community](#-developer-community)
-- [🆕 What's New](#-whats-new-latest-update)
 - [📸 Screenshots](#-screenshots)
+- [🏦 Supported Exchanges (DEX/CEX Tutorials)](#-supported-exchanges-dexcex-tutorials)
+- [🤖 Supported AI Models](#-supported-ai-models)
 - [✨ Current Implementation](#-current-implementation---crypto-markets)
 - [🔮 Roadmap](#-roadmap---universal-market-expansion)
 - [🏗️ Technical Architecture](#️-technical-architecture)
-- [💰 Register Binance Account](#-register-binance-account-save-on-fees)
-- [🔷 Register Hyperliquid Account](#-using-hyperliquid-exchange)
-- [🔶 Register Aster DEX Account](#-using-aster-dex-exchange)
 - [🚀 Quick Start](#-quick-start)
 - [📖 AI Decision Flow](#-ai-decision-flow)
 - [🧠 AI Self-Learning](#-ai-self-learning-example)
@@ -35,6 +38,7 @@
 - [🔄 Changelog](#-changelog)
 - [📄 License](#-license)
 - [🤝 Contributing](#-contributing)
+- [🎁 Contributor Airdrop Program](#-contributor-airdrop-program)
 
 ---
 
@@ -73,64 +77,6 @@ Join our Telegram developer community to discuss, share ideas, and get support:
 
 ---
 
-## 🆕 What's New (Latest Update)
-
-### 🚀 Multi-Exchange Support!
-
-NOFX now supports **three major exchanges**: Binance, Hyperliquid, and Aster DEX!
-
-#### **Hyperliquid Exchange**
-
-A high-performance decentralized perpetual futures exchange!
-
-**Key Features:**
-- ✅ Full trading support (long/short, leverage, stop-loss/take-profit)
-- ✅ Automatic precision handling (order size & price)
-- ✅ Unified trader interface (seamless exchange switching)
-- ✅ Support for both mainnet and testnet
-- ✅ No API keys needed - just your Ethereum private key
-
-**New Workflow:**
-1. **Configure AI Models**: Add your DeepSeek/Qwen API keys through the web interface
-2. **Configure Exchanges**: Set up Binance/Hyperliquid API credentials
-3. **Create Traders**: Combine any AI model with any exchange to create custom traders
-4. **Monitor & Control**: Start/stop traders and monitor performance in real-time
-
-**Why This Update?**
-- 🎯 **User-Friendly**: No more editing JSON files or server restarts
-- 🔧 **Flexible**: Mix and match different AI models with different exchanges
-- 📊 **Scalable**: Create unlimited trader combinations
-- 🔒 **Secure**: Database storage with proper data management
-
-See [Quick Start](#-quick-start) for the new setup process!
-
-#### **Aster DEX Exchange** (NEW! v2.0.2)
-
-A Binance-compatible decentralized perpetual futures exchange!
-
-**Key Features:**
-- ✅ Binance-style API (easy migration from Binance)
-- ✅ Web3 wallet authentication (secure and decentralized)
-- ✅ Full trading support with automatic precision handling
-- ✅ Lower trading fees than CEX
-- ✅ EVM-compatible (Ethereum, BSC, Polygon, etc.)
-
-**Why Aster?**
-- 🎯 **Binance-compatible API** - minimal code changes required
-- 🔐 **API Wallet System** - separate trading wallet for security
-- 💰 **Competitive fees** - lower than most centralized exchanges
-- 🌐 **Multi-chain support** - trade on your preferred EVM chain
-
-**Quick Start:**
-1. Register via [Aster Referral Link](https://www.asterdex.com/en/referral/fdfc0e) (get fee discounts!)
-2. Visit [Aster API Wallet](https://www.asterdex.com/en/api-wallet)
-3. Connect your main wallet and create an API wallet
-4. Copy the API Signer address and Private Key
-5. Set `"exchange": "aster"` in config.json
-6. Add `"aster_user"`, `"aster_signer"`, and `"aster_private_key"`
-
----
-
 ## 📸 Screenshots
 
 ### 🏆 Competition Mode - Real-time AI Battle
@@ -140,6 +86,40 @@ A Binance-compatible decentralized perpetual futures exchange!
 ### 📊 Trader Details - Complete Trading Dashboard
 ![Details Page](screenshots/details-page.png)
 *Professional trading interface with equity curves, live positions, and AI decision logs with expandable input prompts & chain-of-thought reasoning*
+
+---
+
+## 🏦 Supported Exchanges (DEX/CEX Tutorials)
+
+### CEX (Centralized Exchanges)
+
+| Exchange | Status | Register (Fee Discount) | API Setup |
+|----------|--------|-------------------------|-----------|
+| **Binance** | ✅ Supported | [Register](https://www.binance.com/join?ref=NOFXENG) | [API Guide](docs/getting-started/binance-api.md) |
+| **Bybit** | ✅ Supported | [Register](https://partner.bybit.com/b/83856) | [API Guide](docs/getting-started/bybit-api.md) |
+| **OKX** | ✅ Supported | [Register](https://www.okx.com/join/1865360) | [API Guide](docs/getting-started/okx-api.md) |
+
+### Perp-DEX (Decentralized Perpetual Exchanges)
+
+| Exchange | Status | Register (Fee Discount) | Agent Wallet Setup |
+|----------|--------|-------------------------|--------------------|
+| **Hyperliquid** | ✅ Supported | [Register](https://app.hyperliquid.xyz/join/AITRADING) | [Agent Wallet Guide](docs/getting-started/hyperliquid-agent-wallet.md) |
+| **Aster DEX** | ✅ Supported | [Register](https://www.asterdex.com/en/referral/fdfc0e) | [API Wallet Guide](docs/getting-started/aster-api-wallet.md) |
+| **Lighter** | ✅ Supported | [Register](https://lighter.xyz) | [Agent Wallet Guide](docs/getting-started/lighter-agent-wallet.md) |
+
+---
+
+## 🤖 Supported AI Models
+
+| AI Model | Status | Get API Key |
+|----------|--------|-------------|
+| **DeepSeek** | ✅ Supported | [Get API Key](https://platform.deepseek.com) |
+| **Qwen** | ✅ Supported | [Get API Key](https://dashscope.console.aliyun.com) |
+| **OpenAI (GPT)** | ✅ Supported | [Get API Key](https://platform.openai.com) |
+| **Claude** | ✅ Supported | [Get API Key](https://console.anthropic.com) |
+| **Gemini** | ✅ Supported | [Get API Key](https://aistudio.google.com) |
+| **Grok** | ✅ Supported | [Get API Key](https://console.x.ai) |
+| **Kimi** | ✅ Supported | [Get API Key](https://platform.moonshot.cn) |
 
 ---
 
@@ -237,34 +217,6 @@ NOFX is built with a modern, modular architecture:
 📖 **For detailed architecture documentation, see:**
 - **English:** [Architecture Documentation](docs/architecture/README.md)
 - **中文:** [架构文档](docs/architecture/README.zh-CN.md)
-
----
-
-## 💰 Register Binance Account (Save on Fees!)
-
-Before using this system, you need a Binance Futures account. **Use our referral link to save on trading fees:**
-
-**🎁 [Register Binance - Get Fee Discount](https://www.binance.com/join?ref=NOFXENG)**
-
-### Registration Steps:
-
-1. **Click the link above** to visit Binance registration page
-2. **Complete registration** with email/phone number
-3. **Complete KYC verification** (required for futures trading)
-4. **Enable Futures account**:
-   - Go to Binance homepage → Derivatives → USD-M Futures
-   - Click "Open Now" to activate futures trading
-5. **Create API Key**:
-   - Go to Account → API Management
-   - Create new API key, **enable "Futures" permission**
-   - Save API Key and Secret Key (~~needed for config.json~~) *needed for web interface*
-   - **Important**: Whitelist your IP address for security
-
-### Fee Discount Benefits:
-
-- ✅ **Spot trading**: Up to 30% fee discount
-- ✅ **Futures trading**: Up to 30% fee discount
-- ✅ **Lifetime validity**: Permanent discount on all trades
 
 ---
 
@@ -484,192 +436,6 @@ Open your browser and visit: **🌐 http://localhost:3000**
 - Monitor performance in real-time
 
 **✅ No more JSON file editing - everything is done through the web interface!**
-
----
-
-#### 🔷 Using Hyperliquid Exchange
-
-**NOFX supports Hyperliquid** - a high-performance decentralized perpetual futures exchange!
-
-**Why Choose Hyperliquid?**
-- 🚀 **High Performance**: Lightning-fast execution on L1 blockchain
-- 💰 **Low Fees**: Competitive maker/taker fees
-- 🔐 **Non-Custodial**: Your keys, your coins
-- 🌐 **No KYC**: Anonymous trading
-- 💎 **Deep Liquidity**: Institutional-grade order book
-
----
-
-### 📝 Registration & Setup Guide
-
-**Step 1: Register Hyperliquid Account**
-
-1. **Visit Hyperliquid with Referral Link** (get benefits!):
-
-   **🎁 [Register Hyperliquid - Join AITRADING](https://app.hyperliquid.xyz/join/AITRADING)**
-
-2. **Connect Your Wallet**:
-   - Click "Connect Wallet" on the top right
-   - Choose MetaMask, WalletConnect, or other Web3 wallets
-   - Approve the connection
-
-3. **Enable Trading**:
-   - First connection will prompt you to sign a message
-   - This authorizes your wallet for trading (no gas fees)
-   - You'll see your wallet address displayed
-
-**Step 2: Fund Your Wallet**
-
-1. **Bridge Assets to Arbitrum**:
-   - Hyperliquid runs on Arbitrum L2
-   - Bridge USDC from Ethereum mainnet or other chains
-   - Or directly withdraw USDC from exchanges to Arbitrum
-
-2. **Deposit to Hyperliquid**:
-   - Click "Deposit" on Hyperliquid interface
-   - Select USDC amount to deposit
-   - Confirm the transaction (small gas fee on Arbitrum)
-   - Funds appear in your Hyperliquid account within seconds
-
-**Step 3: Set Up Agent Wallet (Recommended)**
-
-Hyperliquid supports **Agent Wallets** - secure sub-wallets specifically for trading automation!
-
-⚠️ **Why Use Agent Wallet:**
-- ✅ **More Secure**: Never expose your main wallet private key
-- ✅ **Limited Access**: Agent only has trading permissions
-- ✅ **Revocable**: Can be disabled anytime from Hyperliquid interface
-- ✅ **Separate Funds**: Keep main holdings safe
-
-**How to Create Agent Wallet:**
-
-1. **Log in to Hyperliquid** using your main wallet
-   - Visit [https://app.hyperliquid.xyz](https://app.hyperliquid.xyz)
-   - Connect with the wallet you registered (from referral link)
-
-2. **Navigate to Agent Settings**:
-   - Click on your wallet address (top right)
-   - Go to "Settings" → "API & Agents"
-   - Or visit: [https://app.hyperliquid.xyz/agents](https://app.hyperliquid.xyz/agents)
-
-3. **Create New Agent**:
-   - Click "Create Agent" or "Add Agent"
-   - System will generate a new agent wallet automatically
-   - **Save the agent wallet address** (starts with `0x`)
-   - **Save the agent private key** (shown only once!)
-
-4. **Agent Wallet Details**:
-   - Main Wallet: Your connected wallet (holds funds)
-   - Agent Wallet: The sub-wallet for trading (NOFX will use this)
-   - Private Key: Only needed for NOFX configuration
-
-5. **Fund Your Agent** (Optional):
-   - Transfer USDC from main wallet to agent wallet
-   - Or keep funds in main wallet (agent can trade from it)
-
-6. **Save Credentials for NOFX**:
-   - Main Wallet Address: `0xYourMainWalletAddress` (with `0x`)
-   - Agent Private Key: `YourAgentPrivateKeyWithout0x` (remove `0x` prefix)
-
----
-
-~~Configure `config.json` for Hyperliquid~~ *Configure through web interface*
-
-```json
-{
-  "traders": [
-    {
-      "id": "hyperliquid_trader",
-      "name": "My Hyperliquid Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "hyperliquid",
-      "hyperliquid_private_key": "your_private_key_without_0x",
-      "hyperliquid_wallet_addr": "your_ethereum_address",
-      "hyperliquid_testnet": false,
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080
-}
-```
-
-**Key Differences from Binance Config:**
-- Replace `binance_api_key` + `binance_secret_key` with `hyperliquid_private_key`
-- Add `"exchange": "hyperliquid"` field
-- Set `hyperliquid_testnet: false` for mainnet (or `true` for testnet)
-
-**⚠️ Security Warning**: Never share your private key! Use a dedicated wallet for trading, not your main wallet.
-
----
-
-#### 🔶 Using Aster DEX Exchange
-
-**NOFX supports Aster DEX** - a Binance-compatible decentralized perpetual futures exchange!
-
-**Why Choose Aster?**
-- 🎯 Binance-compatible API (easy migration)
-- 🔐 API Wallet security system
-- 💰 Lower trading fees
-- 🌐 Multi-chain support (ETH, BSC, Polygon)
-- 🌍 No KYC required
-
-**Step 1**: Register and Create Aster API Wallet
-
-1. Register via [Aster Referral Link](https://www.asterdex.com/en/referral/fdfc0e) (get fee discounts!)
-2. Visit [Aster API Wallet](https://www.asterdex.com/en/api-wallet)
-3. Connect your main wallet (MetaMask, WalletConnect, etc.)
-4. Click "Create API Wallet"
-5. **Save these 3 items immediately:**
-   - Main Wallet address (User)
-   - API Wallet address (Signer)
-   - API Wallet Private Key (⚠️ shown only once!)
-
-**Step 2**: ~~Configure `config.json` for Aster~~ *Configure through web interface*
-
-```json
-{
-  "traders": [
-    {
-      "id": "aster_deepseek",
-      "name": "Aster DeepSeek Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "aster",
-
-      "aster_user": "0xYOUR_MAIN_WALLET_ADDRESS_HERE",
-      "aster_signer": "0xYOUR_API_WALLET_SIGNER_ADDRESS_HERE",
-      "aster_private_key": "your_api_wallet_private_key_without_0x_prefix",
-
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080,
-  "leverage": {
-    "btc_eth_leverage": 5,
-    "altcoin_leverage": 5
-  }
-}
-```
-
-**Key Configuration Fields:**
-- `"exchange": "aster"` - Set exchange to Aster
-- `aster_user` - Your main wallet address
-- `aster_signer` - API wallet address (from Step 1)
-- `aster_private_key` - API wallet private key (without `0x` prefix)
-
-**📖 For detailed setup instructions, see**: [Aster Integration Guide](ASTER_INTEGRATION.md)
-
-**⚠️ Security Notes**:
-- API wallet is separate from your main wallet (extra security layer)
-- Never share your API private key
-- You can revoke API wallet access anytime at [asterdex.com](https://www.asterdex.com/en/api-wallet)
 
 ---
 
@@ -1343,6 +1109,38 @@ We welcome contributions from the community! See our comprehensive guides:
 
 ---
 
+## 🎁 Contributor Airdrop Program
+
+All contributions are tracked on GitHub. When NOFX generates revenue, contributors will receive airdrops based on their contributions.
+
+### 🔥 Priority Rewards: Pinned Issues
+
+**PRs that resolve [Pinned Issues](https://github.com/NoFxAiOS/nofx/issues) receive the HIGHEST rewards!**
+
+Check our pinned issues for high-priority features and bugs - these carry bonus multipliers.
+
+### Contribution Weights
+
+| Contribution Type | Weight | Description |
+|------------------|:------:|-------------|
+| **🔥 Pinned Issue PRs** | ⭐⭐⭐⭐⭐⭐ | PRs solving pinned/priority issues (HIGHEST REWARD) |
+| **Code Commits** (Merged PRs) | ⭐⭐⭐⭐⭐ | Core features, optimizations, new integrations |
+| **Bug Fixes** | ⭐⭐⭐⭐ | Fix confirmed bugs and issues |
+| **Feature Suggestions** (Adopted Issues) | ⭐⭐⭐ | Ideas that get implemented |
+| **Bug Reports** (Confirmed) | ⭐⭐ | Report valid bugs with reproducible steps |
+| **Documentation** | ⭐⭐ | Translations, guides, tutorials |
+
+### How It Works
+
+1. **Check Pinned Issues** - High-priority tasks with bonus rewards
+2. **Contribute** - Submit PRs, report bugs, suggest features
+3. **Track** - All contributions recorded via GitHub activity
+4. **Earn** - Receive airdrops proportional to your contribution weight
+
+> 💡 Start with [Pinned Issues](https://github.com/NoFxAiOS/nofx/issues) for maximum rewards!
+
+---
+
 ## 📬 Contact
 
 
@@ -1371,3 +1169,4 @@ We welcome contributions from the community! See our comprehensive guides:
 ## ⭐ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=tinkle-community/nofx&type=Date)](https://star-history.com/#tinkle-community/nofx&Date)
+
