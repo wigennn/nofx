@@ -6,7 +6,14 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Backed by Amber.ac](https://img.shields.io/badge/Backed%20by-Amber.ac-orange.svg)](https://amber.ac)
 
-**言語:** [English](../../../README.md) | [中文](../zh-CN/README.md) | [Українська](../uk/README.md) | [Русский](../ru/README.md) | [日本語](README.md)
+| 🎁 **コントリビューターエアドロッププログラム** |
+|:----------------------------------:|
+| コード · バグ修正 · Issue → エアドロップ |
+| [詳細を見る](#-コントリビューターエアドロッププログラム) |
+
+**言語:** [English](../../../README.md) | [中文](../zh-CN/README.md) | [Українська](../uk/README.md) | [Русский](../ru/README.md) | [日本語](README.md) | [한국어](../ko/README.md) | [Tiếng Việt](../vi/README.md)
+
+**📚 ドキュメント:** [⚠️ 免責事項](../../../DISCLAIMER.md)
 
 ---
 
@@ -14,14 +21,12 @@
 
 - [🚀 ユニバーサルAIトレーディングOS](#-ユニバーサルaiトレーディングos)
 - [👥 開発者コミュニティ](#-開発者コミュニティ)
-- [🆕 最新情報](#-最新情報最新アップデート)
 - [📸 スクリーンショット](#-スクリーンショット)
+- [🏦 対応取引所（DEX/CEXチュートリアル）](#-対応取引所dexcexチュートリアル)
+- [🤖 対応AIモデル](#-対応aiモデル)
 - [✨ 現在の実装 - 暗号通貨市場](#-現在の実装---暗号通貨市場)
 - [🔮 ロードマップ](#-ロードマップ---ユニバーサルマーケット拡大)
 - [🏗️ 技術アーキテクチャ](#️-技術アーキテクチャ)
-- [💰 Binanceアカウント登録](#-binanceアカウント登録手数料節約)
-- [🔷 Hyperliquidアカウント登録](#-hyperliquid取引所の使用)
-- [🔶 Aster DEXアカウント登録](#-aster-dex取引所の使用)
 - [🚀 クイックスタート](#-クイックスタート)
 - [📖 AI判断フロー](#-ai判断フロー)
 - [🧠 AI自己学習の例](#-ai自己学習の例)
@@ -33,6 +38,7 @@
 - [🔄 変更履歴](#-変更履歴)
 - [📄 ライセンス](#-ライセンス)
 - [🤝 貢献](#-貢献)
+- [🎁 コントリビューターエアドロッププログラム](#-コントリビューターエアドロッププログラム)
 - [📬 お問い合わせ](#-お問い合わせ)
 - [🙏 謝辞](#-謝辞)
 
@@ -53,6 +59,7 @@
 ### 👥 コアチーム
 
 - **Tinkle** - [@Web3Tinkle](https://x.com/Web3Tinkle)
+- **唯一公式推特** - [@nofx_official](https://x.com/nofx_official)
 
 ### 💼 シードラウンド募集中
 
@@ -72,63 +79,6 @@ Telegram開発者コミュニティに参加して、議論、アイデアの共
 
 ---
 
-## 🆕 最新情報（最新アップデート）
-
-### 🚀 マルチ取引所対応！
-
-NOFXは現在、**3つの主要取引所**をサポートしています：Binance、Hyperliquid、Aster DEX！
-
-#### **Hyperliquid取引所**
-
-高性能な分散型無期限先物取引所！
-
-**主な機能:**
-- ✅ フル取引サポート（ロング/ショート、レバレッジ、ストップロス/テイクプロフィット）
-- ✅ 自動精度処理（注文サイズ＆価格）
-- ✅ 統一トレーダーインターフェース（シームレスな取引所切り替え）
-- ✅ メインネットとテストネットの両方をサポート
-- ✅ APIキー不要 - Ethereum秘密鍵のみ
-
-**なぜHyperliquid？**
-- 🔥 中央集権型取引所より低い手数料
-- 🔒 非カストディアル - 資金を自分で管理
-- ⚡ オンチェーン決済による高速実行
-- 🌍 KYC不要
-
-**クイックスタート:**
-1. MetaMaskの秘密鍵を取得（`0x`プレフィックスを削除）
-2. config.jsonで`"exchange": "hyperliquid"`を設定
-3. `"hyperliquid_private_key": "your_key"`を追加
-4. 取引開始！
-
-詳細は[設定ガイド](#-代替hyperliquid取引所の使用)をご覧ください。
-
-#### **Aster DEX取引所**（NEW! v2.0.2）
-
-Binance互換の分散型無期限先物取引所！
-
-**主な機能:**
-- ✅ BinanceスタイルAPI（Binanceからの移行が簡単）
-- ✅ Web3ウォレット認証（安全で分散型）
-- ✅ 自動精度処理によるフル取引サポート
-- ✅ CEXより低い取引手数料
-- ✅ EVM互換（Ethereum、BSC、Polygonなど）
-
-**なぜAster？**
-- 🎯 **Binance互換API** - 最小限のコード変更で済む
-- 🔐 **APIウォレットシステム** - セキュリティのための独立した取引ウォレット
-- 💰 **競争力のある手数料** - ほとんどの中央集権型取引所より低い
-- 🌐 **マルチチェーンサポート** - お好みのEVMチェーンで取引
-
-**クイックスタート:**
-1. [Aster APIウォレット](https://www.asterdex.com/en/api-wallet)にアクセス
-2. メインウォレットを接続してAPIウォレットを作成
-3. API Signerアドレスと秘密鍵をコピー
-4. config.jsonで`"exchange": "aster"`を設定
-5. `"aster_user"`、`"aster_signer"`、`"aster_private_key"`を追加
-
----
-
 ## 📸 スクリーンショット
 
 ### 🏆 競争モード - リアルタイムAIバトル
@@ -138,6 +88,40 @@ Binance互換の分散型無期限先物取引所！
 ### 📊 トレーダー詳細 - 完全なトレーディングダッシュボード
 ![詳細ページ](screenshots/details-page.png)
 *エクイティカーブ、ライブポジション、展開可能な入力プロンプトと思考連鎖推論を持つAI判断ログを備えたプロフェッショナルな取引インターフェース*
+
+---
+
+## 🏦 対応取引所（DEX/CEXチュートリアル）
+
+### CEX（中央集権型取引所）
+
+| 取引所 | ステータス | 登録（手数料割引） | API設定 |
+|--------|------------|-------------------|---------|
+| **Binance** | ✅ 対応済み | [登録](https://www.binance.com/join?ref=NOFXJAPAN) | [APIガイド](../../getting-started/binance-api.md) |
+| **Bybit** | ✅ 対応済み | [登録](https://partner.bybit.com/b/83856) | [APIガイド](../../getting-started/bybit-api.md) |
+| **OKX** | ✅ 対応済み | [登録](https://www.okx.com/join/1865360) | [APIガイド](../../getting-started/okx-api.md) |
+
+### Perp-DEX（分散型無期限取引所）
+
+| 取引所 | ステータス | 登録（手数料割引） | エージェントウォレット設定 |
+|--------|------------|-------------------|---------------------------|
+| **Hyperliquid** | ✅ 対応済み | [登録](https://app.hyperliquid.xyz/join/AITRADING) | [エージェントウォレットガイド](../../getting-started/hyperliquid-agent-wallet.md) |
+| **Aster DEX** | ✅ 対応済み | [登録](https://www.asterdex.com/en/referral/fdfc0e) | [APIウォレットガイド](../../getting-started/aster-api-wallet.md) |
+| **Lighter** | ✅ 対応済み | [登録](https://lighter.xyz) | [エージェントウォレットガイド](../../getting-started/lighter-agent-wallet.md) |
+
+---
+
+## 🤖 対応AIモデル
+
+| AIモデル | ステータス | APIキー取得 |
+|----------|------------|-------------|
+| **DeepSeek** | ✅ 対応済み | [APIキー取得](https://platform.deepseek.com) |
+| **Qwen** | ✅ 対応済み | [APIキー取得](https://dashscope.console.aliyun.com) |
+| **OpenAI (GPT)** | ✅ 対応済み | [APIキー取得](https://platform.openai.com) |
+| **Claude** | ✅ 対応済み | [APIキー取得](https://console.anthropic.com) |
+| **Gemini** | ✅ 対応済み | [APIキー取得](https://aistudio.google.com) |
+| **Grok** | ✅ 対応済み | [APIキー取得](https://console.x.ai) |
+| **Kimi** | ✅ 対応済み | [APIキー取得](https://platform.moonshot.cn) |
 
 ---
 
@@ -263,34 +247,6 @@ nofx/
 - `recharts` - チャートライブラリ（エクイティカーブ、比較チャート）
 - `swr` - データフェッチングとキャッシング
 - `tailwindcss` - CSSフレームワーク
-
----
-
-## 💰 Binanceアカウント登録（手数料節約！）
-
-このシステムを使用する前に、Binance先物アカウントが必要です。**紹介リンクを使用して取引手数料を節約しましょう：**
-
-**🎁 [Binance登録 - 手数料割引を取得](https://www.binance.com/join?ref=TINKLEVIP)**
-
-### 登録手順：
-
-1. **上記のリンクをクリック**してBinance登録ページにアクセス
-2. メール/電話番号で**登録を完了**
-3. **KYC認証を完了**（先物取引に必要）
-4. **先物アカウントを有効化**：
-   - Binanceホームページ → デリバティブ → USDT無期限先物
-   - 「今すぐ開設」をクリックして先物取引を有効化
-5. **APIキーを作成**：
-   - アカウント → API管理
-   - 新しいAPIキーを作成、**「先物」権限を有効化**
-   - APIキーとシークレットキーを保存（config.jsonに必要）
-   - **重要**: セキュリティのためIPアドレスをホワイトリストに追加
-
-### 手数料割引の利点：
-
-- ✅ **現物取引**: 最大30%の手数料割引
-- ✅ **先物取引**: 最大30%の手数料割引
-- ✅ **生涯有効**: すべての取引で永久割引
 
 ---
 
@@ -505,191 +461,6 @@ cp config.json.example config.json
 - [ ] `use_default_coins`を`true`に設定（初心者向け）
 - [ ] `initial_balance`をアカウント残高と一致させる
 - [ ] ファイルを`config.json`として保存（`.example`ではない）
-
----
-
-#### 🔷 Hyperliquid取引所の使用
-
-**NOFXはHyperliquidをサポート** - 高性能な分散型無期限先物取引所！
-
-**なぜHyperliquidを選ぶ？**
-- 🚀 **高性能**: L1ブロックチェーンでの超高速実行
-- 💰 **低手数料**: 競争力のあるメーカー/テイカー手数料
-- 🔐 **非カストディアル**: あなたの鍵、あなたのコイン
-- 🌐 **KYC不要**: 匿名取引
-- 💎 **豊富な流動性**: 機関投資家レベルのオーダーブック
-
----
-
-### 📝 登録とセットアップガイド
-
-**ステップ1: Hyperliquidアカウントを登録**
-
-1. **紹介リンクでHyperliquidにアクセス**（特典を獲得！）：
-
-   **🎁 [Hyperliquid登録 - AITRADINGに参加](https://app.hyperliquid.xyz/join/AITRADING)**
-
-2. **ウォレットを接続**：
-   - 右上の「ウォレット接続」をクリック
-   - MetaMask、WalletConnect、または他のWeb3ウォレットを選択
-   - 接続を承認
-
-3. **取引を有効化**：
-   - 初回接続時にメッセージへの署名を求められます
-   - これによりウォレットでの取引が承認されます（ガス代不要）
-   - ウォレットアドレスが表示されます
-
-**ステップ2: ウォレットに資金を入金**
-
-1. **Arbitrumにアセットをブリッジ**：
-   - HyperliquidはArbitrum L2上で動作します
-   - Ethereumメインネットまたは他のチェーンからUSDCをブリッジ
-   - または取引所からArbitrumに直接USDCを出金
-
-2. **Hyperliquidに入金**：
-   - Hyperliquidインターフェースで「入金」をクリック
-   - 入金するUSDC金額を選択
-   - トランザクションを確認（Arbitrumでの少額のガス代）
-   - 数秒でHyperliquidアカウントに資金が表示されます
-
-**ステップ3: エージェントウォレットをセットアップ（推奨）**
-
-Hyperliquidは**エージェントウォレット**をサポート - 取引自動化専用の安全なサブウォレット！
-
-⚠️ **エージェントウォレットを使用する理由：**
-- ✅ **より安全**: メインウォレットの秘密鍵を公開する必要なし
-- ✅ **限定的なアクセス**: エージェントは取引権限のみ
-- ✅ **取り消し可能**: Hyperliquidインターフェースからいつでも無効化可能
-- ✅ **資金の分離**: メインの保有資産を安全に保つ
-
-**エージェントウォレットの作成方法：**
-
-1. **メインウォレットでHyperliquidにログイン**
-   - [https://app.hyperliquid.xyz](https://app.hyperliquid.xyz)にアクセス
-   - 登録したウォレットで接続（紹介リンクから）
-
-2. **エージェント設定に移動**：
-   - ウォレットアドレスをクリック（右上）
-   - 「設定」→「API & エージェント」に移動
-   - または：[https://app.hyperliquid.xyz/agents](https://app.hyperliquid.xyz/agents)にアクセス
-
-3. **新しいエージェントを作成**：
-   - 「エージェントを作成」または「エージェントを追加」をクリック
-   - システムが自動的に新しいエージェントウォレットを生成
-   - **エージェントウォレットアドレスを保存**（`0x`で始まる）
-   - **エージェント秘密鍵を保存**（一度だけ表示されます！）
-
-4. **エージェントウォレットの詳細**：
-   - メインウォレット: 接続したウォレット（資金を保有）
-   - エージェントウォレット: 取引用のサブウォレット（NOFXがこれを使用）
-   - 秘密鍵: NOFX設定にのみ必要
-
-5. **エージェントに資金を入金**（オプション）：
-   - メインウォレットからエージェントウォレットにUSDCを送金
-   - またはメインウォレットに資金を保持（エージェントはそこから取引可能）
-
-6. **NOFX用の認証情報を保存**：
-   - メインウォレットアドレス: `0xYourMainWalletAddress`（`0x`付き）
-   - エージェント秘密鍵: `YourAgentPrivateKeyWithout0x`（`0x`プレフィックスを削除）
-
----
-
-~~Hyperliquid用に`config.json`を設定~~ *Webインターフェースで設定*
-
-```json
-{
-  "traders": [
-    {
-      "id": "hyperliquid_trader",
-      "name": "My Hyperliquid Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "hyperliquid",
-      "hyperliquid_private_key": "your_private_key_without_0x",
-      "hyperliquid_wallet_addr": "your_ethereum_address",
-      "hyperliquid_testnet": false,
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080
-}
-```
-
-**Binance設定との主な違い:**
-- `binance_api_key` + `binance_secret_key`を`hyperliquid_private_key`に置き換え
-- `"exchange": "hyperliquid"`フィールドを追加
-- メインネットには`hyperliquid_testnet: false`、テストネットには`true`を設定
-
-**⚠️ セキュリティ警告**: 秘密鍵は絶対に共有しないでください！メインウォレットではなく、取引専用のウォレットを使用してください。
-
----
-
-#### 🔶 Aster DEX取引所の使用
-
-**NOFXはAster DEXもサポート** - Binance互換の分散型無期限先物取引所！
-
-**なぜAsterを選ぶ？**
-- 🎯 Binance互換API（簡単な移行）
-- 🔐 APIウォレットセキュリティシステム
-- 💰 低い取引手数料
-- 🌐 マルチチェーンサポート（ETH、BSC、Polygon）
-- 🌍 KYC不要
-
-**ステップ1**: Aster APIウォレットを作成
-
-1. [Aster APIウォレット](https://www.asterdex.com/en/api-wallet)にアクセス
-2. メインウォレットを接続（MetaMask、WalletConnectなど）
-3. 「APIウォレットを作成」をクリック
-4. **これらの3つの項目をすぐに保存：**
-   - メインウォレットアドレス（User）
-   - APIウォレットアドレス（Signer）
-   - APIウォレット秘密鍵（⚠️ 一度だけ表示！）
-
-**ステップ2**: Aster用に`config.json`を設定
-
-```json
-{
-  "traders": [
-    {
-      "id": "aster_deepseek",
-      "name": "Aster DeepSeek Trader",
-      "enabled": true,
-      "ai_model": "deepseek",
-      "exchange": "aster",
-
-      "aster_user": "0x63DD5aCC6b1aa0f563956C0e534DD30B6dcF7C4e",
-      "aster_signer": "0x21cF8Ae13Bb72632562c6Fff438652Ba1a151bb0",
-      "aster_private_key": "4fd0a42218f3eae43a6ce26d22544e986139a01e5b34a62db53757ffca81bae1",
-
-      "deepseek_key": "sk-xxxxxxxxxxxxx",
-      "initial_balance": 1000.0,
-      "scan_interval_minutes": 3
-    }
-  ],
-  "use_default_coins": true,
-  "api_server_port": 8080,
-  "leverage": {
-    "btc_eth_leverage": 5,
-    "altcoin_leverage": 5
-  }
-}
-```
-
-**主要設定フィールド:**
-- `"exchange": "aster"` - 取引所をAsterに設定
-- `aster_user` - メインウォレットアドレス
-- `aster_signer` - APIウォレットアドレス（ステップ1から）
-- `aster_private_key` - APIウォレット秘密鍵（`0x`プレフィックスなし）
-
-**📖 詳細なセットアップ手順については**: [Aster統合ガイド](ASTER_INTEGRATION.md)を参照
-
-**⚠️ セキュリティ注意事項**:
-- APIウォレットはメインウォレットとは別（追加のセキュリティレイヤー）
-- API秘密鍵は絶対に共有しない
-- [asterdex.com](https://www.asterdex.com/en/api-wallet)でいつでもAPIウォレットアクセスを取り消し可能
 
 ---
 
@@ -1408,6 +1179,38 @@ IssueとPull Requestを歓迎します！
 3. 変更をコミット（`git commit -m 'Add some AmazingFeature'`）
 4. ブランチにプッシュ（`git push origin feature/AmazingFeature`）
 5. Pull Requestを開く
+
+---
+
+## 🎁 コントリビューターエアドロッププログラム
+
+すべての貢献はGitHubで記録されます。NOFXが収益を上げた際、貢献者は貢献度に応じてエアドロップを受け取ります。
+
+### 🔥 優先報酬：ピン留めIssue
+
+**[ピン留めIssue](https://github.com/NoFxAiOS/nofx/issues)を解決するPRは最高の報酬を受け取ります！**
+
+ピン留めIssueで高優先度の機能とバグをチェック - ボーナス倍率が適用されます。
+
+### 貢献ウェイト
+
+| 貢献タイプ | ウェイト | 説明 |
+|----------|:------:|------|
+| **🔥 ピン留めIssue PR** | ⭐⭐⭐⭐⭐⭐ | ピン留め/優先Issueを解決するPR（最高報酬） |
+| **コードコミット** (マージされたPR) | ⭐⭐⭐⭐⭐ | コア機能、最適化、新しい統合 |
+| **バグ修正** | ⭐⭐⭐⭐ | 確認されたバグの修正 |
+| **機能提案** (採用されたIssue) | ⭐⭐⭐ | 実装されたアイデア |
+| **バグ報告** (確認済み) | ⭐⭐ | 再現可能な有効なバグの報告 |
+| **ドキュメント** | ⭐⭐ | 翻訳、ガイド、チュートリアル |
+
+### 仕組み
+
+1. **ピン留めIssueをチェック** - 高優先度タスク、ボーナス報酬
+2. **貢献** - PR提出、バグ報告、機能提案
+3. **追跡** - すべての貢献はGitHubアクティビティで記録
+4. **獲得** - 貢献ウェイトに比例してエアドロップを受け取る
+
+> 💡 [ピン留めIssue](https://github.com/NoFxAiOS/nofx/issues)から始めて、最高の報酬を獲得しましょう！
 
 ---
 
